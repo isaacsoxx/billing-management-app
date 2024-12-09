@@ -1,0 +1,58 @@
+@import "../../themes.scss";
+
+h1 {
+    padding: 0 1.25rem;
+    color: $color-white;
+}
+
+
+button {
+    color: $color-white;
+}
+
+mat-toolbar{
+    position:fixed;
+    top:0;
+    z-index: 2;
+    background-color: $color-light-blue;
+}
+
+mat-sidenav-container {
+    height:100%;
+}
+
+// Move the content down so that it won't be hidden by the toolbar
+mat-sidenav {
+    border-right: 1px solid $color-light-gray;
+    width: fit-content;
+    padding-top: 3.5rem;
+    @media screen and (min-width: 600px) {
+        padding-top: 4rem;
+    }
+
+    .nav-list-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding:0.75rem 2.5rem;
+        cursor: pointer;
+        
+        mat-icon {
+            color: $color-light-blue;
+        }
+
+        &:hover{
+            background-color: $color-light-gray;
+        }
+    }
+  }
+
+// Move the content down so that it won't be hidden by the toolbar
+mat-sidenav-content{
+    padding-top: 3.5rem;
+    padding-left: 4rem;
+    @media screen and (min-width: 600px) {
+        padding-top: 5rem;
+        padding-left: 5rem;
+    }
+}

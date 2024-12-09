@@ -1,0 +1,36 @@
+<mat-toolbar>
+  <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>Administración de puntos y facturas</h1>
+</mat-toolbar>
+
+<mat-sidenav-container autosize>
+  <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile">
+    <mat-nav-list>
+      <a class="nav-list-item">
+        <mat-icon>house</mat-icon>
+        <span *ngIf="!isCollapsed">Dashboard</span>
+      </a>
+      <a class="nav-list-item">
+        <mat-icon>supervisor_account</mat-icon>
+        <span *ngIf="!isCollapsed">Users</span>
+      </a>
+      <a class="nav-list-item">
+        <mat-icon>list_alt</mat-icon>
+        <span *ngIf="!isCollapsed">Billing</span>
+      </a>
+      <a class="nav-list-item">
+        <mat-icon>house</mat-icon>
+        <span *ngIf="!isCollapsed">Dashboard</span>
+      </a>
+      <a class="nav-list-item">
+        <mat-icon>house</mat-icon>
+        <span *ngIf="!isCollapsed">Dashboard</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
