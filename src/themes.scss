@@ -1,5 +1,14 @@
-$color-light-gray: #dcdde1;
-$color-dark-gray: #9FAEBB;
-$color-light-blue: #3792ED;
-$color-dark-blue:#0747D3;
-$color_white: #FCFDFD;
+
+$color-soft-gray: #f1f2f6;
+$color-sky-blue: #87ceeb;
+$color-navy-blue: #1a2a6c;
+$color-soft-white: #f8f9fa;
+$color-silver: #c0c0c0;
+$color-teal-blue: #4682b4;
+
+.gradient-background {
+    background: linear-gradient(180deg, rgba(70,130,180,1) 0%, rgba(135,206,235,1) 100%); }
+
+.default-border-radius {
+    border-radius: 0.75em;
+}

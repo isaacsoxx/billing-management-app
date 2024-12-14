@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+import { MatTooltipModule } from '@angular/material/tooltip'; 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -13,16 +14,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule } from '@angular/material/list'; 
 
 import { HeaderComponent } from './header/header.component';
+import { GenericComponentsModule } from '../common/generic-components.module';
+import { UsersTableComponent } from './users/users-table/users-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    UsersTableComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    GenericComponentsModule,
 
+    MatTooltipModule,
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,

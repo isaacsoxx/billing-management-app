@@ -1,32 +1,68 @@
-<mat-toolbar>
-  <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <h1>Administración de puntos y facturas</h1>
-</mat-toolbar>
-
+<button
+  class="mobile"
+  mat-icon-button
+  aria-label="Menu icon"
+  (click)="toggleMenu()"
+  *ngIf="isMobile"
+>
+  <mat-icon>menu</mat-icon>
+</button>
 <mat-sidenav-container autosize>
   <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile">
+    <button
+      class="desktop"
+      mat-icon-button
+      aria-label="Menu icon"
+      (click)="toggleMenu()"
+      *ngIf="!isMobile"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
     <mat-nav-list>
-      <a class="nav-list-item">
-        <mat-icon>house</mat-icon>
-        <span *ngIf="!isCollapsed">Dashboard</span>
+      <a
+        class="nav-list-item"
+        matTooltip="Inicio"
+        matTooltipPosition="right"
+        [matTooltipDisabled]="!isCollapsed"
+      >
+        <mat-icon>home</mat-icon>
+        <span *ngIf="!isCollapsed">Inicio</span>
       </a>
-      <a class="nav-list-item">
-        <mat-icon>supervisor_account</mat-icon>
-        <span *ngIf="!isCollapsed">Users</span>
+      <a
+        class="nav-list-item"
+        matTooltip="Usuarios"
+        matTooltipPosition="right"
+        [matTooltipDisabled]="!isCollapsed"
+      >
+        <mat-icon>people_outline</mat-icon>
+        <span *ngIf="!isCollapsed">Usuarios</span>
       </a>
-      <a class="nav-list-item">
+      <a
+        class="nav-list-item"
+        matTooltip="Facturación"
+        matTooltipPosition="right"
+        [matTooltipDisabled]="!isCollapsed"
+      >
         <mat-icon>list_alt</mat-icon>
-        <span *ngIf="!isCollapsed">Billing</span>
+        <span *ngIf="!isCollapsed">Facturación</span>
       </a>
-      <a class="nav-list-item">
-        <mat-icon>house</mat-icon>
-        <span *ngIf="!isCollapsed">Dashboard</span>
+      <a
+        class="nav-list-item"
+        matTooltip="Servicios"
+        matTooltipPosition="right"
+        [matTooltipDisabled]="!isCollapsed"
+      >
+        <mat-icon>apps</mat-icon>
+        <span *ngIf="!isCollapsed">Servicios</span>
       </a>
-      <a class="nav-list-item">
-        <mat-icon>house</mat-icon>
-        <span *ngIf="!isCollapsed">Dashboard</span>
+      <a
+        class="nav-list-item"
+        matTooltip="Etiquetas"
+        matTooltipPosition="right"
+        [matTooltipDisabled]="!isCollapsed"
+      >
+        <mat-icon>bookmark_border</mat-icon>
+        <span *ngIf="!isCollapsed">Etiquetas</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>

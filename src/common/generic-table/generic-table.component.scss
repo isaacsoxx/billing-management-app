@@ -1,0 +1,46 @@
+@import "../../themes.scss";
+
+div.generic-table-container {
+    width: 75%;
+    margin: 0 auto;
+    @media screen and (max-width: 1300px) {
+        width: 90%;
+    }
+
+    table {
+        @extend .default-border-radius;
+        table-layout: auto;
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        border-collapse: separate;
+        border: 1px solid #000000;
+
+
+        tr.generic-table-content-row {
+            cursor: pointer;
+            &:hover {
+                background-color: $color-soft-gray;
+            }
+                
+            td.generic-table-content-cell {
+                word-wrap: break-word;
+                width: min-content;
+            }
+        }
+        th.generic-table-header-cell, td.generic-table-content-cell {
+            font-size: 1.15em;
+            text-align: justify;
+            box-sizing: border-box;
+            width: fit-content;
+            padding: 0 4rem;
+            @media screen and (max-width: 1300px) {
+                padding: 0 1.15rem;
+            }
+        }
+
+    }
+    button, mat-icon {
+        color: $color-soft-white;
+    }
+}
