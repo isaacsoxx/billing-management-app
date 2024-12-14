@@ -28,6 +28,22 @@ mat-sidenav {
         padding-top: 4rem;
     }
 
+    a.nav-list-item.active-route {
+        color: $color-midnight-blue;
+        background-color: $color-soft-white;
+
+        mat-icon {
+            color: $color-midnight-blue;
+        }
+
+        &hover {
+            color: $color-midnight-blue;
+            mat-icon {
+                color: $color-midnight-blue;
+            }
+        }
+    }
+
     .nav-list-item {
         @extend .default-border-radius;
         color: $color-soft-white;
@@ -48,11 +64,11 @@ mat-sidenav {
         }
         
         &:hover{
-            color: $color-navy-blue;
+            color: $color-teal-blue;
             background-color: $color-soft-white;
             
             mat-icon {
-                color: $color-navy-blue;
+                color: $color-teal-blue;
             }
         }
 

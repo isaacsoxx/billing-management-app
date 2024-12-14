@@ -19,7 +19,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-nav-list>
-      <a
+      <!-- <a
         class="nav-list-item"
         matTooltip="Inicio"
         matTooltipPosition="right"
@@ -27,8 +27,10 @@
       >
         <mat-icon>home</mat-icon>
         <span *ngIf="!isCollapsed">Inicio</span>
-      </a>
+      </a> -->
       <a
+        routerLink="/users"
+        routerLinkActive="active-route"
         class="nav-list-item"
         matTooltip="Usuarios"
         matTooltipPosition="right"
