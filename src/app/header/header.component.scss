@@ -1,4 +1,5 @@
 @import "../../themes.scss";
+@import "../../styles.scss";
 
 mat-sidenav-container {
     height:100%;
@@ -13,7 +14,7 @@ button {
         z-index: 3;
         background-color: $color-teal-blue;
         width: fit-content;
-        margin: 0.45rem 2rem;
+        margin: 1.15rem 2rem;
     }
 
     &.desktop {
@@ -77,7 +78,11 @@ mat-sidenav {
 
 mat-sidenav-content{
     padding-top: 3.5rem;
-    @media screen and (min-width: 600px) {
+    padding-left: 15rem;
+    padding-right: 15rem;
+    @media screen and (max-width: 1300px) {
         padding-top: 5rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 }

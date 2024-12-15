@@ -1,3 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+@import './themes.scss';
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.gradient-background {
+    background: linear-gradient(180deg, rgba(70,130,180,1) 0%, rgba(135,206,235,1) 100%);
+}
+.default-border-radius {
+    border-radius: 0.75em !important;
+}
+
+.default-primary-button {
+    @extend .default-border-radius;
+    color: $color-soft-white;
+    background-color: $color-teal-blue;
+}
+
+.default-secondary-button {
+    @extend .default-border-radius;
+    color: $color-teal-blue;
+    background-color: $color-soft-white;
+}
+
+.mat-mdc-dialog-surface {
+    @extend .default-border-radius;
+}

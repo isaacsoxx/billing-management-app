@@ -16,12 +16,14 @@ import { MatListModule } from '@angular/material/list';
 import { HeaderComponent } from './header/header.component';
 import { GenericComponentsModule } from '../common/generic-components.module';
 import { UsersTableComponent } from './users/users-table/users-table.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     UsersTableComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,

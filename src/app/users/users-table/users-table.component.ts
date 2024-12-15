@@ -41,7 +41,7 @@ export class UsersTableComponent implements OnInit {
     },
     {
       displayName: 'Ver Facturas',
-      icon: 'open_in_new'
+      icon: 'attach_money'
     },
     {
       displayName: 'Desactivar',
