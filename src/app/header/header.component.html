@@ -1,12 +1,14 @@
-<button
-  class="mobile"
-  mat-icon-button
-  aria-label="Menu icon"
-  (click)="toggleMenu()"
-  *ngIf="isMobile"
->
-  <mat-icon>menu</mat-icon>
-</button>
+<mat-toolbar *ngIf="isMobile">
+  <button
+    class="mobile"
+    mat-icon-button
+    aria-label="Menu icon"
+    (click)="toggleMenu()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
 <mat-sidenav-container autosize>
   <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile">
     <button

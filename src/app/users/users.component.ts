@@ -11,8 +11,8 @@ import { iGenericModalActionTypes, iGenericModalConfig } from '../../models';
   styleUrl: './users.component.scss'
 })
 export class UsersComponent implements OnInit {
-  @ViewChild('genericUserModalContent') 
-  public genericUserModalContent!: any;
+  @ViewChild('genericUserFormModalContent') 
+  public genericUserFormModalContent!: any;
   public modalTitle!: string;
   
   private genericModalRef!: MatDialogRef<GenericModalComponent>;
@@ -28,7 +28,7 @@ export class UsersComponent implements OnInit {
       width: '900rem',
       data: {
         title: this.modalTitle,
-        content: this.genericUserModalContent,
+        content: this.genericUserFormModalContent,
         actionButtons: this.defineGenericModalActionButtons()
       }
     });

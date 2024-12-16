@@ -1,1 +1,13 @@
-<p>form component</p>
+<section [formGroup]="form" class="py-4">
+  <div *ngFor="let field of formFields" class="mx-4">
+    <mat-form-field appearance="outline" class="w-100 my-2">
+      <mat-label>{{ field.displayName }}</mat-label>
+      <input
+        matInput
+        [id]="field.controlName"
+        [type]="field.type"
+        [formControlName]="field.controlName"
+      />
+    </mat-form-field>
+  </div>
+</section>

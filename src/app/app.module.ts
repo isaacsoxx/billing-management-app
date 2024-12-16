@@ -13,23 +13,26 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule } from '@angular/material/list'; 
 
-import { HeaderComponent } from './header/header.component';
 import { GenericComponentsModule } from '../common/generic-components.module';
-import { UsersTableComponent } from './users/users-table/users-table.component';
-import { UsersComponent } from './users/users.component';
+
+import { HeaderComponent } from './header/header.component';
+import { UserFormComponent, UsersComponent, UsersTableComponent } from './users';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    UsersTableComponent,
     UsersComponent,
+    UsersTableComponent,
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     GenericComponentsModule,
 
+    ReactiveFormsModule,
     MatTooltipModule,
     MatButtonModule,
     MatIconModule,

@@ -3,8 +3,8 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.gradient-background {
-    background: linear-gradient(180deg, rgba(70,130,180,1) 0%, rgba(135,206,235,1) 100%);
+@mixin gradient-background ($deg: 180deg) {
+    background: linear-gradient($deg, rgba(70,130,180,1) 0%, rgba(135,206,235,1) 100%);
 }
 .default-border-radius {
     border-radius: 0.75em !important;
@@ -15,7 +15,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: $color-soft-white;
     background-color: $color-teal-blue;
 }
-
 .default-secondary-button {
     @extend .default-border-radius;
     color: $color-teal-blue;
@@ -25,3 +24,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-mdc-dialog-surface {
     @extend .default-border-radius;
 }
+
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {
+    mat-label {
+        color: $color-teal-blue !important;
+        font-size: 1.35rem;
+    }
+    border-color: $color-teal-blue !important;
+}
+
