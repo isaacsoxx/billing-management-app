@@ -25,13 +25,38 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     @extend .default-border-radius;
 }
 
-.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,
-.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,
-.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {
+::ng-deep.mat-custom-tooltip {
+    font-size: 2rem!important;
+}
+::ng-deep .mat-tooltip {
+    font-size: 2.35rem!important;
+}
+
+.mdc-text-field--outlined.mdc-text-field--focused.mdc-text-field--invalid .mdc-notched-outline__leading,
+.mdc-text-field--outlined.mdc-text-field--focused.mdc-text-field--invalid .mdc-notched-outline__notch,
+.mdc-text-field--outlined.mdc-text-field--focused.mdc-text-field--invalid .mdc-notched-outline__trailing {
+    mat-label {
+        color: $color-error !important;
+        font-size: 1.35rem;
+    }
+    border-color: $color-error !important;
+}
+
+.mdc-text-field--outlined.mdc-text-field--focused:not(.mdc-text-field--invalid) .mdc-notched-outline__leading,
+.mdc-text-field--outlined.mdc-text-field--focused:not(.mdc-text-field--invalid) .mdc-notched-outline__notch,
+.mdc-text-field--outlined.mdc-text-field--focused:not(.mdc-text-field--invalid) .mdc-notched-outline__trailing {
     mat-label {
         color: $color-teal-blue !important;
         font-size: 1.35rem;
     }
     border-color: $color-teal-blue !important;
+}
+
+.mat-mdc-form-field-infix {
+    display: flex;
+
+    mat-icon {
+        color: $color-error;
+    }
 }
 

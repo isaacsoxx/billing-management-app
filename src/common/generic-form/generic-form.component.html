@@ -1,6 +1,6 @@
 <section [formGroup]="form" class="py-4">
   <div *ngFor="let field of formFields" class="mx-4">
-    <mat-form-field appearance="outline" class="w-100 my-2">
+    <mat-form-field appearance="outline" class="w-100 my-2 d-flex">
       <mat-label>{{ field.displayName }}</mat-label>
       <input
         matInput
@@ -8,6 +8,15 @@
         [type]="field.type"
         [formControlName]="field.controlName"
       />
+      <section *ngIf="getValidationStatus(field.controlName)">
+        <mat-icon
+          [matTooltip]="getValidationMessage(field)"
+          matTooltipPosition="right"
+          matTooltipClass="mat-custom-tooltip"
+        >
+          error_outline
+        </mat-icon>
+      </section>
     </mat-form-field>
   </div>
 </section>
