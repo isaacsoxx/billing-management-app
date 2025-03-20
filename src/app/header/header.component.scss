@@ -32,6 +32,7 @@ mat-sidenav {
   }
 
   a.nav-list-item.active-route {
+    @extend .default-box-shadow;
     color: $color-midnight-blue;
     background-color: $color-soft-white;
 
@@ -58,6 +59,10 @@ mat-sidenav {
     cursor: pointer;
 
     mat-icon {
+      @media screen and (max-width: 800px) {
+        font-size: 1.6rem;
+      }
+
       color: $color-soft-white;
       font-size: 2rem;
       width: fit-content;
