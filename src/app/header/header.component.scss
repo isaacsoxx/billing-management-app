@@ -2,94 +2,92 @@
 @import "../../styles.scss";
 
 mat-toolbar {
-    @include gradient-background(90deg);
-    position: absolute;
-    z-index: 3;
+  @include gradient-background(90deg);
+  position: absolute;
+  z-index: 3;
 }
 
 mat-sidenav-container {
-    height:100%;
+  height: 100%;
 }
 
 button {
-    color: $color-soft-white;
-    line-height: 1;
+  color: $color-soft-white;
+  line-height: 1;
 
-    &.mobile {
-        width: fit-content;
-        margin: 1.05rem;
-    }
+  &.mobile {
+    width: fit-content;
+    margin: 1.05rem;
+  }
 
-    &.desktop {
-        margin: 0.90rem 1.20rem;
-    }
+  &.desktop {
+    margin: 0.9rem 1.2rem;
+  }
 }
 mat-sidenav {
-    @include gradient-background(180deg);
-    width: fit-content;
-    padding: 0 0.85rem;
-    @media screen and (max-width: 800px) {
-        padding-top: 4rem;
+  @include gradient-background(180deg);
+  width: fit-content;
+  @media screen and (max-width: 800px) {
+    padding-top: 4rem;
+  }
+
+  a.nav-list-item.active-route {
+    color: $color-midnight-blue;
+    background-color: $color-soft-white;
+
+    mat-icon {
+      color: $color-midnight-blue;
     }
 
-    a.nav-list-item.active-route {
+    &hover {
+      color: $color-midnight-blue;
+      mat-icon {
         color: $color-midnight-blue;
-        background-color: $color-soft-white;
-
-        mat-icon {
-            color: $color-midnight-blue;
-        }
-
-        &hover {
-            color: $color-midnight-blue;
-            mat-icon {
-                color: $color-midnight-blue;
-            }
-        }
-    }
-
-    .nav-list-item {
-        @extend .default-border-radius;
-        color: $color-soft-white;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        padding:0.75rem 1.15rem;
-        margin: 0.45rem;
-        cursor: pointer;
-        
-        mat-icon {
-            color: $color-soft-white;
-            font-size: 2rem;
-            width: fit-content;
-        }
-        span {
-            margin-left: 1.15rem;
-        }
-        
-        &:hover{
-            color: $color-teal-blue;
-            background-color: $color-soft-white;
-            
-            mat-icon {
-                color: $color-teal-blue;
-            }
-        }
-
+      }
     }
   }
 
-mat-sidenav-content{
-    padding-top: 3.5rem;
-    padding-left: 15rem;
-    padding-right: 15rem;
-    @media screen and (max-width: 1400px) {
-        padding-left: 6rem;
-        padding-right: 6rem;
+  .nav-list-item {
+    @extend .default-border-radius;
+    color: $color-soft-white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.15rem;
+    margin: 0.45rem;
+    cursor: pointer;
+
+    mat-icon {
+      color: $color-soft-white;
+      font-size: 2rem;
+      width: fit-content;
     }
-    @media screen and (max-width: 800px) {
-        padding-top: 8rem;
-        padding-left: 2rem;
-        padding-right: 2rem;
+    span {
+      margin-left: 1.15rem;
     }
+
+    &:hover {
+      color: $color-teal-blue;
+      background-color: $color-soft-white;
+
+      mat-icon {
+        color: $color-teal-blue;
+      }
+    }
+  }
+}
+
+mat-sidenav-content {
+  padding-top: 3.5rem;
+  padding-left: 15rem;
+  padding-right: 15rem;
+  @media screen and (max-width: 1400px) {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+  @media screen and (max-width: 800px) {
+    padding-top: 8rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }

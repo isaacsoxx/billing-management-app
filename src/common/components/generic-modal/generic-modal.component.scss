@@ -1,0 +1,12 @@
+@import "../../../themes.scss";
+@import "../../../styles.scss";
+
+section.actionButtonsContainer {
+  button.primary {
+    @extend .default-primary-button;
+  }
+
+  button.secondary {
+    @extend .default-secondary-button;
+  }
+}
