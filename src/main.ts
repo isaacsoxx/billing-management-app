@@ -2,14 +2,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { Amplify } from 'aws-amplify';
 import { environment } from './environments/environment';
-
-platformBrowserDynamic()
-  .bootstrapModule(AppModule, {
-    ngZoneEventCoalescing: true,
-  })
-  .catch((err) => console.error(err));
-
-console.log('Running env ', environment.production ? 'prod' : 'dev');
+import { sessionStorage } from 'aws-amplify/utils';
+import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito';
 
 Amplify.configure({
   Auth: {
@@ -32,3 +26,11 @@ Amplify.configure({
     },
   },
 });
+
+cognitoUserPoolsTokenProvider.setKeyValueStorage(sessionStorage);
+
+platformBrowserDynamic()
+  .bootstrapModule(AppModule, {
+    ngZoneEventCoalescing: true,
+  })
+  .catch((err) => console.error(err));

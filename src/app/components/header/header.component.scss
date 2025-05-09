@@ -1,8 +1,9 @@
-@import "../../themes.scss";
-@import "../../styles.scss";
+@import "../../../themes.scss";
+@import "../../../styles.scss";
 
 mat-toolbar {
   @include gradient-background(90deg);
+  padding: 0 0.5rem;
   position: absolute;
   z-index: 3;
 }
@@ -17,11 +18,11 @@ button {
 
   &.mobile {
     width: fit-content;
-    margin: 1.05rem;
+    // margin: 1.05rem;
   }
 
   &.desktop {
-    margin: 0.9rem 1.2rem;
+    margin: 0.75rem 0.9rem;
   }
 }
 mat-sidenav {
@@ -46,6 +47,13 @@ mat-sidenav {
         color: $color-midnight-blue;
       }
     }
+  }
+
+  mat-nav-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90%;
   }
 
   .nav-list-item {

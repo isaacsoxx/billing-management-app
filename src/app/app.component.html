@@ -1,19 +1,11 @@
-<!-- <amplify-authenticator>
-    <ng-template
-      amplifySlot="authenticated"
-      let-user="user"
-      let-signOut="signOut"
-    >
+<section [ngClass]="{ 'sign-in-wrapper': !(isSessionActive$ | async) }">
+  <amplify-authenticator>
+    <ng-template amplifySlot="authenticated">
       <app-header>
         <div>
           <router-outlet></router-outlet>
         </div>
       </app-header>
     </ng-template>
-  </amplify-authenticator> -->
-
-<app-header>
-  <div>
-    <router-outlet></router-outlet>
-  </div>
-</app-header>
+  </amplify-authenticator>
+</section>

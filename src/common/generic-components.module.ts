@@ -17,7 +17,7 @@ import {
   GenericModalComponent,
   GenericTableComponent,
 } from '.';
-import { tableReducer } from './store';
+import { reducers } from './store';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,9 @@ import { tableReducer } from './store';
     GenericFormComponent,
   ],
   imports: [
+    CommonModule,
+    StoreModule.forFeature('common', reducers),
+
     MatDividerModule,
     MatInputModule,
     MatFormFieldModule,
@@ -35,9 +38,6 @@ import { tableReducer } from './store';
     MatButtonModule,
     MatTableModule,
     MatDialogModule,
-
-    CommonModule,
-    StoreModule.forRoot({ table: tableReducer }),
   ],
   exports: [GenericTableComponent, GenericModalComponent, GenericFormComponent],
 })

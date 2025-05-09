@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { TableState } from '../table.state';
+import { iGenericState } from '../generic.state';
 
-export const selectTableState = createFeatureSelector<TableState>('table');
+export const selectTableState = createFeatureSelector<iGenericState>('common');
 export const getSelectedRow = createSelector(
   selectTableState,
-  (state) => state.selectedRow
+  (state) => state.table
 );

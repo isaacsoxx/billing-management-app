@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "BillingManagementApp.UI": {
+    "BillingManagementApp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -79,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "BillingManagementApp.UI:build:production"
+              "buildTarget": "BillingManagementApp:build:production"
             },
             "development": {
-              "buildTarget": "BillingManagementApp.UI:build:development"
+              "buildTarget": "BillingManagementApp:build:development"
             }
           },
           "defaultConfiguration": "development"

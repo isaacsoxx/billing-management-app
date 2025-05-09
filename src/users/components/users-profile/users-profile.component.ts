@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { getSelectedRow, iGenericRowModel } from '../../../common';
-import { iUser } from '../..';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
+import { getSelectedUser, iUser } from '../..';
 
 @Component({
   selector: 'app-users-profile',
@@ -13,15 +12,15 @@ import { Router } from '@angular/router';
   styleUrl: './users-profile.component.scss',
 })
 export class UsersProfileComponent {
-  private selectedUser$!: Observable<iGenericRowModel | null>;
+  private selectedUser$!: Observable<iUser | null>;
   public userData!: Partial<iUser>;
 
-  constructor(private genericStore: Store, private router: Router) {
-    this.selectedUser$ = this.genericStore.select(getSelectedRow);
+  constructor(private store: Store, private router: Router) {
+    this.selectedUser$ = this.store.select(getSelectedUser);
 
     this.selectedUser$
       .pipe(
-        tap((user: iGenericRowModel | null) => {
+        map((user: iUser | null) => {
           if (!!user) {
             this.userData = user;
           } else {

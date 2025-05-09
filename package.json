@@ -1,11 +1,12 @@
 {
-  "name": "billing-management-app.ui",
+  "name": "billing-management-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "start:dev": "ng serve --configuration development",
+    "start:dev-host": "ng serve --configuration development --host 0.0.0.0",
     "test": "ng test"
   },
   "private": true,

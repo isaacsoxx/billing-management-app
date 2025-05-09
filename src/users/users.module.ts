@@ -7,12 +7,14 @@ import { RouterModule } from '@angular/router';
 
 import {
   UserFormComponent,
+  userReducer,
   UsersComponent,
   UsersProfileComponent,
   UsersRoutingModule,
   UsersTableComponent,
 } from '.';
 import { GenericComponentsModule } from '../common';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { GenericComponentsModule } from '../common';
   ],
   imports: [
     CommonModule,
+    StoreModule.forFeature('users', userReducer),
+
     RouterModule,
     UsersRoutingModule,
     GenericComponentsModule,

@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { iGenericRowModel, iGenericTableColumnsModel } from '../../models';
-import { Store } from '@ngrx/store';
-import { selectRow } from '../../store';
 
 @Component({
   selector: 'app-generic-table',
@@ -13,13 +11,14 @@ import { selectRow } from '../../store';
 export class GenericTableComponent implements OnInit {
   @Input('dataSource') dataSource!: iGenericRowModel[];
   @Input('columns') columns!: iGenericTableColumnsModel[];
-  @Output('onRowSelectEvent') onRowSelectEvent = new EventEmitter<null>();
+  @Output('onRowSelectEvent') onRowSelectEvent =
+    new EventEmitter<iGenericRowModel>();
 
   public displayedColumns!: string[];
   public displayPopupActions!: boolean;
   public selectedRow!: iGenericRowModel;
 
-  constructor(private store: Store) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.displayedColumns = this.columns.map(
@@ -28,7 +27,6 @@ export class GenericTableComponent implements OnInit {
   }
 
   setSelectedRow(row: iGenericRowModel) {
-    this.store.dispatch(selectRow({ row }));
-    this.onRowSelectEvent.emit();
+    this.onRowSelectEvent.emit(row);
   }
 }
