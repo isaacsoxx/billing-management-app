@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getAuthSession, iSessionModel } from '../auth';
-import { Actions } from '@ngrx/effects';
-import { map, Observable, of, retry } from 'rxjs';
-import { selectAuthSession } from '../auth/store/selectors/auth.selectors';
+import { map, Observable, of } from 'rxjs';
+import { getAuthSession, selectAuthSession } from '../auth';
 
 @Component({
   selector: 'app-root',

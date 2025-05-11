@@ -16,10 +16,7 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2020",
-    "module": "ES2022",
-    "paths": {
-      "@common-store": ["./src/common/store/index.ts"]
-    }
+    "module": "ES2022"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

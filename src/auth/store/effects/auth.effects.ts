@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { fetchAuthSession, signOut } from 'aws-amplify/auth';
 import { catchError, filter, from, map, of, switchMap } from 'rxjs';
 import {
@@ -9,17 +10,19 @@ import {
   removeAuthSessionSuccess,
   setAuthSessionError,
   setAuthSessionSuccess,
-} from '../actions/auth.actions';
+} from '..';
+import { withLoading } from '../../../common';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private store: Store) {}
 
   getAuthSession$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getAuthSession),
       switchMap(() =>
         from(fetchAuthSession()).pipe(
+          withLoading(this.store),
           filter((session) => !!session.userSub),
           map((session) => {
             if (!session.userSub) {
@@ -36,14 +39,13 @@ export class AuthEffects {
               session: { accessToken, role, uuid },
             });
           }),
-          catchError((error) => {
-            console.log('Error', error);
-            return of(
+          catchError(() =>
+            of(
               setAuthSessionError({
                 error: 'There was an error while fetching your session.',
               })
-            );
-          })
+            )
+          )
         )
       )
     )
@@ -54,6 +56,7 @@ export class AuthEffects {
       ofType(removeAuthSession),
       switchMap(() =>
         from(signOut()).pipe(
+          withLoading(this.store),
           map(() => removeAuthSessionSuccess()),
           catchError(() => of(removeAuthSessionError()))
         )
