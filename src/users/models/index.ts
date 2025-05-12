@@ -1,1 +1,1 @@
-export * from './iUser.model';
+export * from './iuser.model';

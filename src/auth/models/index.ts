@@ -1,1 +1,1 @@
-export * from './iSession.model';
+export * from './isession.model';

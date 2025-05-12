@@ -58,6 +58,7 @@ mat-sidenav {
 
   .nav-list-item {
     @extend .default-border-radius;
+    @extend .pointer-cursor;
     border-bottom-left-radius: 0px !important;
     border-top-left-radius: 0px !important;
     color: $color-soft-white;
@@ -67,7 +68,6 @@ mat-sidenav {
     padding: 0.75rem 1.15rem;
     margin: 0.45rem;
     margin-left: 0;
-    cursor: pointer;
 
     mat-icon {
       @media screen and (max-width: 800px) {
