@@ -2,7 +2,6 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
-import { signOut } from 'aws-amplify/auth';
 import { removeAuthSession } from '../../../auth';
 
 @Component({
@@ -37,7 +36,7 @@ export class HeaderComponent {
     }
   }
 
-  async logout() {
+  logout() {
     this.store.dispatch(removeAuthSession());
   }
 }

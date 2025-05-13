@@ -13,19 +13,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
-import {
-  AppRoutingModule,
-  AppComponent,
-  HeaderComponent,
-  UserRegisterComponent,
-} from '.';
+import { AppRoutingModule, AppComponent, HeaderComponent } from '.';
 
 import { AuthModule } from '../auth';
 import { UsersModule } from '../users';
 import { GenericComponentsModule } from '../common';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, UserRegisterComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     StoreModule.forRoot({}),
