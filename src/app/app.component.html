@@ -1,5 +1,12 @@
-<app-header>
-  <div>
-    <router-outlet></router-outlet>
-  </div>
-</app-header>
+<section [ngClass]="{ 'sign-in-wrapper': !(isSessionActive$ | async) }">
+  <amplify-authenticator>
+    <ng-template amplifySlot="authenticated">
+      <app-header>
+        <div>
+          <router-outlet></router-outlet>
+        </div>
+      </app-header>
+      <app-generic-spinner></app-generic-spinner>
+    </ng-template>
+  </amplify-authenticator>
+</section>

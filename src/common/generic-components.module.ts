@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,16 +17,22 @@ import {
   GenericFormComponent,
   GenericModalComponent,
   GenericTableComponent,
+  GenericSpinnerComponent,
 } from '.';
-import { tableReducer } from './store';
+import { reducers } from './store';
 
 @NgModule({
   declarations: [
     GenericTableComponent,
     GenericModalComponent,
     GenericFormComponent,
+    GenericSpinnerComponent,
   ],
   imports: [
+    CommonModule,
+    StoreModule.forFeature('common', reducers),
+
+    MatProgressSpinnerModule,
     MatDividerModule,
     MatInputModule,
     MatFormFieldModule,
@@ -35,10 +42,12 @@ import { tableReducer } from './store';
     MatButtonModule,
     MatTableModule,
     MatDialogModule,
-
-    CommonModule,
-    StoreModule.forRoot({ table: tableReducer }),
   ],
-  exports: [GenericTableComponent, GenericModalComponent, GenericFormComponent],
+  exports: [
+    GenericTableComponent,
+    GenericModalComponent,
+    GenericFormComponent,
+    GenericSpinnerComponent,
+  ],
 })
 export class GenericComponentsModule {}

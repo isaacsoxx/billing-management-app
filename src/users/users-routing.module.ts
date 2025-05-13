@@ -4,7 +4,7 @@ import { UsersComponent, UsersProfileComponent } from '.';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'users',
     component: UsersComponent,
     pathMatch: 'full',
   },

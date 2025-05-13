@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { iUser } from '../../models';
-import { iGenericTableColumnsModel } from '../../../common';
+import { iGenericRowModel, iGenericTableColumnsModel } from '../../../common';
 
 import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { selectUser } from '../../store';
 
 @Component({
   selector: 'app-users-table',
@@ -20,7 +22,7 @@ export class UsersTableComponent implements OnInit {
     { columnDef: 'email', displayName: 'Correo electrónico' },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store) {}
 
   ngOnInit(): void {
     this.getUsersData();
@@ -56,7 +58,8 @@ export class UsersTableComponent implements OnInit {
     this.dataSource = usersData;
   }
 
-  redirToProfile() {
+  redirToProfile(event: iGenericRowModel) {
+    this.store.dispatch(selectUser({ user: event as iUser }));
     this.router.navigateByUrl('users/profile');
   }
 }

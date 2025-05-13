@@ -1,0 +1,13 @@
+@import "../themes.scss";
+@import "../styles.scss";
+
+section {
+  height: 100%;
+}
+
+.sign-in-wrapper {
+  @include gradient-background(315deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

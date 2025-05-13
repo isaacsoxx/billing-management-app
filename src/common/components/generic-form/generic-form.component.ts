@@ -35,6 +35,6 @@ export class GenericFormComponent implements OnInit {
       }
     );
 
-    return foundMessage?.message || 'Hay un error con el valor que indicó.';
+    return foundMessage?.message || 'Hay un error con el valor indicado.';
   }
 }

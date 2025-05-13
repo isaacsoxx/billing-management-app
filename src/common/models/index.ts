@@ -1,3 +1,3 @@
-export * from './iGenericTable.model';
-export * from './iGenericModalConfig.model';
-export * from './iGenericFormFieldModel.model';
+export * from './igeneric-table.model';
+export * from './igeneric-modal-config.model';
+export * from './igeneric-form-field.model';

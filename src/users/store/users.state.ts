@@ -1,9 +1,9 @@
 import { iUser } from '../models';
 
-export interface UserState {
+export interface iUsersState {
   selectedUser: iUser | null;
 }
 
-export const initialState: UserState = {
+export const initialState: iUsersState = {
   selectedUser: null,
 };

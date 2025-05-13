@@ -1,2 +1,22 @@
+@use "@angular/material" as mat;
 @import "../../../styles.scss";
 @import "../../../themes.scss";
+
+mat-form-field {
+  @include mat.form-field-overrides(
+    (
+      outlined-label-text-populated-size: 1.35rem,
+
+      outlined-error-outline-color: $color-error,
+      outlined-error-label-text-color: $color-error,
+      outlined-error-hover-outline-color: $color-error,
+      outlined-error-focus-outline-color: $color-error,
+      outlined-error-hover-label-text-color: $color-error,
+
+      outlined-focus-label-text-color: $color-teal-blue,
+      outlined-focus-outline-color: $color-teal-blue,
+      outlined-hover-outline-color: $color-teal-blue,
+      outlined-hover-label-text-color: $color-silver,
+    )
+  );
+}

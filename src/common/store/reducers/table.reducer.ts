@@ -1,10 +1,18 @@
 import { createReducer, on } from '@ngrx/store';
-import { initialState } from '../table.state';
-import { selectRow } from '../actions/table.actions';
+import { iGenericRowModel } from '../../models';
+import { setSelectRow } from '../actions/table.actions';
+
+export interface TableState {
+  selectedRow: iGenericRowModel | null;
+}
+
+export const initialTableState: TableState = {
+  selectedRow: null,
+};
 
 export const tableReducer = createReducer(
-  initialState,
-  on(selectRow, (state, { row }) => ({
+  initialTableState,
+  on(setSelectRow, (state, { row }) => ({
     ...state,
     selectedRow: row,
   }))
