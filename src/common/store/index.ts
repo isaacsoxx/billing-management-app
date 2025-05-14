@@ -1,15 +1,13 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { iGenericState } from './generic.state';
-import { tableReducer } from './reducers/table.reducer';
-import { spinnerReducer } from './reducers/spinner.reducer';
+import { modalReducer, spinnerReducer, tableReducer } from './reducers';
 
 export * from './generic.state';
-export * from './actions/spinner.actions';
-export * from './actions/table.actions';
-export * as SpinnerSelectors from './selectors/spinner.selector';
-export * as TableSelectors from './selectors/table.selector';
+export * from './actions';
+export * from './selectors';
 
 export const reducers: ActionReducerMap<iGenericState> = {
   table: tableReducer,
   spinner: spinnerReducer,
+  modal: modalReducer,
 };

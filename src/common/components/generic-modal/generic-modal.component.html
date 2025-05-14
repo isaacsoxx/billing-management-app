@@ -1,20 +1,25 @@
-<h1 mat-dialog-title>{{ title }}</h1>
+<ng-template #genericModalTemplate>
+  <ng-container *ngIf="modalContent$ | async as modalContent">
+    <h1 mat-dialog-title>{{ modalContent.title }}</h1>
 
-<section mat-dialog-content>
-  <ng-container *ngTemplateOutlet="content"></ng-container>
-</section>
+    <section mat-dialog-content>
+      <ng-content #modalContent></ng-content>
+    </section>
 
-<section
-  mat-dialog-actions
-  class="actionButtonsContainer d-flex justify-content-start"
->
-  <button
-    mat-button
-    mat-flat-button
-    *ngFor="let action of actionButtons"
-    [class]="action.type"
-    (click)="action.action()"
-  >
-    {{ action.displayName }}
-  </button>
-</section>
+    <section
+      mat-dialog-actions
+      class="actionButtonsContainer d-flex justify-content-start"
+    >
+      <button
+        mat-button
+        mat-flat-button
+        *ngFor="let button of modalContent.actionButtons"
+        [disabled]="button.isDisabled"
+        [ngClass]="button.isDisabled ? 'disabled' : button.type"
+        (click)="button.action()"
+      >
+        {{ button.displayName }}
+      </button>
+    </section>
+  </ng-container>
+</ng-template>

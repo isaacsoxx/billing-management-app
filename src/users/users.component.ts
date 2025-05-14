@@ -1,7 +1,13 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { GenericModalComponent } from '../common/components/generic-modal/generic-modal.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { iGenericModalActionTypes, iGenericModalConfig } from '../common';
+import { Component, ViewChild } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import {
+  GenericModalComponent,
+  iGenericModalActionTypes,
+  setModalData,
+} from '../common';
+import { UserFormComponent } from './components';
 
 @Component({
   selector: 'app-users',
@@ -10,54 +16,73 @@ import { iGenericModalActionTypes, iGenericModalConfig } from '../common';
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
 })
-export class UsersComponent implements OnInit {
-  @ViewChild('genericUserFormModalContent')
-  public genericUserFormModalContent!: any;
-  public modalTitle!: string;
+export class UsersComponent {
+  @ViewChild('usersForm')
+  private usersForm!: UserFormComponent;
+  @ViewChild('usersFormModal')
+  private usersFormModal!: GenericModalComponent;
+  private usersFormModalRef!: MatDialogRef<GenericModalComponent>;
+  private getIsFormValid$: Subscription = new Subscription();
+  private isSaveEnabled: boolean = false;
 
-  private genericModalRef!: MatDialogRef<GenericModalComponent>;
+  constructor(private store: Store) {}
 
-  constructor(private dialog: MatDialog) {}
-
-  ngOnInit(): void {
-    this.modalTitle = 'Registrar cliente';
+  setModalData() {
+    this.store.dispatch(
+      setModalData({
+        content: {
+          title: 'Registrar cliente',
+          actionButtons: this.setModalActionButtons(),
+        },
+      })
+    );
   }
 
   openGenericFormModal() {
-    this.genericModalRef = this.dialog.open<
-      GenericModalComponent,
-      iGenericModalConfig
-    >(GenericModalComponent, {
-      width: '900rem',
-      data: {
-        title: this.modalTitle,
-        content: this.genericUserFormModalContent,
-        actionButtons: this.defineGenericModalActionButtons(),
-      },
-    });
+    this.setModalData();
+    this.usersFormModalRef = this.usersFormModal.openGenericModalComponent();
+    this.setSaveEnabled();
   }
 
-  defineGenericModalActionButtons() {
+  setModalActionButtons() {
     return [
       {
         displayName: 'Registrar',
         type: iGenericModalActionTypes.SUBMIT,
+        isDisabled: !this.isSaveEnabled,
         action: this.saveClient.bind(this),
       },
       {
         displayName: 'Cancelar',
         type: iGenericModalActionTypes.CANCEL,
+        isDisabled: false,
         action: this.closeDialog.bind(this),
       },
     ];
   }
 
   saveClient() {
-    console.log('Save');
+    console.log(this.usersForm.getFormValue());
+    this.closeDialog();
   }
 
   closeDialog() {
-    console.log('closing');
-    this.genericModalRef.close();
+    this.usersFormModalRef.close();
+    this.resetModalData();
+  }
+
+  setSaveEnabled() {
+    this.getIsFormValid$ = this.usersForm
+      .getIsFormValid$()
+      .subscribe((isValid: boolean) => {
+        this.isSaveEnabled = isValid;
+        this.setModalData();
+      });
+  }
+
+  resetModalData() {
+    this.usersForm.ngOnDestroy();
+    this.store.dispatch(setModalData({ content: null }));
+    this.getIsFormValid$.unsubscribe();
   }
 }

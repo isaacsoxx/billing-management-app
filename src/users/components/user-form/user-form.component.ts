@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { map, Observable, of } from 'rxjs';
 import {
   iGenericFormFieldModel,
   iGenericFormFieldType,
@@ -13,7 +14,8 @@ import {
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss',
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit, OnDestroy {
+  private isFormValid$: Observable<boolean> = of(false);
   public userForm = new FormGroup({
     userId: new FormControl(null, [
       Validators.required,
@@ -30,6 +32,17 @@ export class UserFormComponent implements OnInit {
   public formFields!: iGenericFormFieldModel[];
 
   ngOnInit(): void {
+    this.isFormValid$ = this.userForm.statusChanges.pipe(
+      map((changes) => changes === 'VALID')
+    );
+    this.setFormFields();
+  }
+
+  ngOnDestroy(): void {
+    this.userForm.reset();
+  }
+
+  setFormFields() {
     this.formFields = [
       {
         displayName: 'Identificación',
@@ -102,5 +115,14 @@ export class UserFormComponent implements OnInit {
         ],
       },
     ];
+  }
+
+  // this could be generic
+  getFormValue() {
+    return this.userForm.value;
+  }
+
+  getIsFormValid$() {
+    return this.isFormValid$;
   }
 }

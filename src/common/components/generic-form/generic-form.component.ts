@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { iGenericFormFieldModel, iGenericFormFieldValidation } from '../..';
 
@@ -9,11 +9,9 @@ import { iGenericFormFieldModel, iGenericFormFieldValidation } from '../..';
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.scss',
 })
-export class GenericFormComponent implements OnInit {
+export class GenericFormComponent {
   @Input() form!: FormGroup;
   @Input() formFields!: iGenericFormFieldModel[];
-
-  ngOnInit(): void {}
 
   getValidationStatus(controlName: string) {
     return (

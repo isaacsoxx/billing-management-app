@@ -2,6 +2,10 @@
 @import "../../../styles.scss";
 
 section.actionButtonsContainer {
+  button.disabled {
+    @extend .default-disabled-button;
+  }
+
   button.primary {
     @extend .default-primary-button;
   }
