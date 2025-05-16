@@ -1,8 +1,14 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, ContentChild, TemplateRef } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { iGenericModalContent, selectModalContent } from '../..';
+import {
+  GenericModalTemplateComponent,
+  iGenericModalContent,
+  resetModalState,
+  selectModalActionStatus,
+  selectModalContent,
+} from '../..';
 
 @Component({
   selector: 'app-generic-modal',
@@ -12,18 +18,35 @@ import { iGenericModalContent, selectModalContent } from '../..';
   styleUrl: './generic-modal.component.scss',
 })
 export class GenericModalComponent {
-  @ViewChild('genericModalTemplate')
-  private genericModalTemplate!: TemplateRef<GenericModalComponent>;
+  @ContentChild(TemplateRef)
+  public templateContentRef: any;
   public modalContent$: Observable<iGenericModalContent | null> = of(null);
+  public modalActionStatus$: Observable<boolean> = of(true);
+  private genericModalRef!: MatDialogRef<GenericModalTemplateComponent>;
 
   constructor(private dialogRef: MatDialog, private store: Store) {}
 
   openGenericModalComponent() {
+    this.getModalActionStatus();
     this.getModalContent();
 
-    return this.dialogRef.open(this.genericModalTemplate, {
+    this.genericModalRef = this.dialogRef.open(GenericModalTemplateComponent, {
       width: '80%',
+      data: {
+        templateContent: this.templateContentRef,
+        modalContent$: this.modalContent$,
+        actionStatus$: this.modalActionStatus$,
+      },
     });
+  }
+
+  close() {
+    this.store.dispatch(resetModalState());
+    this.genericModalRef.close();
+  }
+
+  getModalActionStatus() {
+    this.modalActionStatus$ = this.store.select(selectModalActionStatus);
   }
 
   getModalContent() {

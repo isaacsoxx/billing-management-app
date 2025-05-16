@@ -1,6 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { iGenericFormFieldModel, iGenericFormFieldValidation } from '../..';
+import { Store } from '@ngrx/store';
+import { filter, Subscription, tap } from 'rxjs';
+import {
+  iGenericFormFieldModel,
+  iGenericFormFieldValidation,
+  setFormState,
+} from '../..';
 
 @Component({
   selector: 'app-generic-form',
@@ -9,9 +15,37 @@ import { iGenericFormFieldModel, iGenericFormFieldValidation } from '../..';
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.scss',
 })
-export class GenericFormComponent {
-  @Input() form!: FormGroup;
-  @Input() formFields!: iGenericFormFieldModel[];
+export class GenericFormComponent implements OnInit, OnDestroy {
+  @Input()
+  public form!: FormGroup;
+  @Input()
+  public formFields!: iGenericFormFieldModel[];
+
+  private formValueChangesSubscription$: Subscription = new Subscription();
+
+  constructor(private store: Store) {}
+  ngOnInit() {
+    if (this.form) {
+      this.formValueChangesSubscription$ = this.form.valueChanges
+        .pipe(
+          tap(() => {
+            this.setFormState(this.form.valid, this.form.value);
+          })
+        )
+        .subscribe();
+    }
+  }
+
+  ngOnDestroy() {
+    this.formValueChangesSubscription$.unsubscribe();
+    this.store.dispatch(setFormState({ isValid: false, value: null }));
+  }
+
+  setFormState(isValid?: boolean, value?: any) {
+    this.store.dispatch(
+      setFormState({ isValid: isValid ?? false, value: value ?? null })
+    );
+  }
 
   getValidationStatus(controlName: string) {
     return (

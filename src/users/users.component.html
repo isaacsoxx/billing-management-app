@@ -5,14 +5,6 @@
   el botón que se lo indica .
 </p>
 
-<section class="create-user my-5 d-flex justify-content-start">
-  <button mat-button mat-flat-button (click)="openGenericFormModal()">
-    Registrar nuevo cliente
-    <mat-icon>group_add</mat-icon>
-  </button>
-</section>
+<app-users-register></app-users-register>
 
 <app-users-table></app-users-table>
-<app-generic-modal #usersFormModal>
-  <app-user-form #usersForm></app-user-form>
-</app-generic-modal>

@@ -1,0 +1,30 @@
+<ng-container *ngIf="modalContent$ | async as modalContent">
+  <h1 mat-dialog-title>{{ modalContent?.title }}</h1>
+
+  <section mat-dialog-content>
+    <ng-container *ngTemplateOutlet="originTemplate"></ng-container>
+  </section>
+
+  <section
+    mat-dialog-actions
+    class="actionButtonsContainer d-flex justify-content-start"
+  >
+    <button
+      mat-button
+      mat-flat-button
+      [disabled]="!(modalActionStatus$ | async)"
+      [ngClass]="!(modalActionStatus$ | async) ? 'disabled' : 'primary'"
+      (click)="modalContent?.onSubmit()"
+    >
+      {{ modalContent?.submitDisplayText }}
+    </button>
+    <button
+      mat-button
+      mat-flat-button
+      class="secondary"
+      (click)="modalContent?.onCancel()"
+    >
+      {{ modalContent?.cancelDisplayText }}
+    </button>
+  </section>
+</ng-container>

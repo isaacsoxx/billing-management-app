@@ -6,10 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 
 import {
-  UserFormComponent,
   userReducer,
   UsersComponent,
+  UsersFormComponent,
   UsersProfileComponent,
+  UsersRegisterComponent,
   UsersRoutingModule,
   UsersTableComponent,
 } from '.';
@@ -21,7 +22,8 @@ import { StoreModule } from '@ngrx/store';
     UsersProfileComponent,
     UsersComponent,
     UsersTableComponent,
-    UserFormComponent,
+    UsersFormComponent,
+    UsersRegisterComponent,
   ],
   imports: [
     CommonModule,

@@ -1,21 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { map, Observable, of } from 'rxjs';
 import {
+  GenericFormComponent,
   iGenericFormFieldModel,
   iGenericFormFieldType,
   iGenericFormFieldValidationType,
 } from '../../../common';
 
 @Component({
-  selector: 'app-user-form',
+  selector: 'app-users-form',
   standalone: false,
 
-  templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.scss',
+  templateUrl: './users-form.component.html',
+  styleUrl: './users-form.component.scss',
 })
-export class UserFormComponent implements OnInit, OnDestroy {
-  private isFormValid$: Observable<boolean> = of(false);
+export class UsersFormComponent implements OnInit {
+  @ViewChild('genericFormComponent')
+  public genericFormComponent!: GenericFormComponent;
   public userForm = new FormGroup({
     userId: new FormControl(null, [
       Validators.required,
@@ -31,15 +32,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
   });
   public formFields!: iGenericFormFieldModel[];
 
-  ngOnInit(): void {
-    this.isFormValid$ = this.userForm.statusChanges.pipe(
-      map((changes) => changes === 'VALID')
-    );
+  ngOnInit() {
     this.setFormFields();
-  }
-
-  ngOnDestroy(): void {
-    this.userForm.reset();
   }
 
   setFormFields() {
@@ -115,14 +109,5 @@ export class UserFormComponent implements OnInit, OnDestroy {
         ],
       },
     ];
-  }
-
-  // this could be generic
-  getFormValue() {
-    return this.userForm.value;
-  }
-
-  getIsFormValid$() {
-    return this.isFormValid$;
   }
 }

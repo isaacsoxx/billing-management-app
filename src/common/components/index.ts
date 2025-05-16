@@ -1,4 +1,5 @@
 export * from './generic-spinner/generic-spinner.component';
 export * from './generic-form/generic-form.component';
+export * from './generic-modal-template/generic-modal-template.component';
 export * from './generic-modal/generic-modal.component';
 export * from './generic-table/generic-table.component';
