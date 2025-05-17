@@ -1,8 +1,0 @@
-@import "../themes.scss";
-@import "../styles.scss";
-
-section.create-user {
-  button {
-    @extend .default-primary-button;
-  }
-}

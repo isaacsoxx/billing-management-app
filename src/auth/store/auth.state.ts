@@ -1,9 +1,4 @@
-import { iSessionModel } from '../models';
-
-export interface iAuthState {
-  session: iSessionModel | null;
-  error: string;
-}
+import { iAuthState } from '../models';
 
 export const initialState: iAuthState = {
   session: null,

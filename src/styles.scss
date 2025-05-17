@@ -44,6 +44,11 @@ body {
   color: $color-teal-blue;
   background-color: $color-soft-white;
 }
+.default-disabled-button {
+  @extend .default-border-radius;
+  @extend .default-box-shadow;
+}
+
 .pointer-cursor {
   cursor: pointer;
 }

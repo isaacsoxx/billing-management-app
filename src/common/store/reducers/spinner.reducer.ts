@@ -1,9 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { setIsLoading } from '../actions/spinner.actions';
-
-export interface SpinnerState {
-  isLoading: boolean;
-}
+import { SpinnerState } from '../../models';
 
 export const initialSpinnerState: SpinnerState = {
   isLoading: false,

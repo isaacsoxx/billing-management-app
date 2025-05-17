@@ -1,10 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { iGenericRowModel } from '../../models';
+import { TableState } from '../../models';
 import { setSelectRow } from '../actions/table.actions';
-
-export interface TableState {
-  selectedRow: iGenericRowModel | null;
-}
 
 export const initialTableState: TableState = {
   selectedRow: null,

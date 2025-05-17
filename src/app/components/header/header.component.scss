@@ -77,6 +77,10 @@ mat-sidenav {
       color: $color-soft-white;
       font-size: 2rem;
       width: fit-content;
+      height: fit-content;
+      span {
+        margin: 0;
+      }
     }
     span {
       margin-left: 1.15rem;

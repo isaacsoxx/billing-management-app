@@ -18,12 +18,14 @@ import {
   GenericModalComponent,
   GenericTableComponent,
   GenericSpinnerComponent,
+  GenericModalTemplateComponent,
 } from '.';
 import { reducers } from './store';
 
 @NgModule({
   declarations: [
     GenericTableComponent,
+    GenericModalTemplateComponent,
     GenericModalComponent,
     GenericFormComponent,
     GenericSpinnerComponent,

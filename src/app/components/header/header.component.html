@@ -5,7 +5,7 @@
     aria-label="Menu icon"
     (click)="toggleMenu()"
   >
-    <mat-icon>menu</mat-icon>
+    <mat-icon>apps</mat-icon>
   </button>
 </mat-toolbar>
 
@@ -18,7 +18,7 @@
       (click)="toggleMenu()"
       *ngIf="!isMobile"
     >
-      <mat-icon>menu</mat-icon>
+      <mat-icon> apps </mat-icon>
     </button>
     <mat-nav-list>
       <section>
@@ -30,7 +30,7 @@
           matTooltipPosition="right"
           [matTooltipDisabled]="!isCollapsed"
         >
-          <mat-icon>people_outline</mat-icon>
+          <mat-icon>groups</mat-icon>
           <span *ngIf="!isCollapsed">Clientes</span>
         </a>
         <a
@@ -39,7 +39,7 @@
           matTooltipPosition="right"
           [matTooltipDisabled]="!isCollapsed"
         >
-          <mat-icon>list_alt</mat-icon>
+          <mat-icon>receipt_long</mat-icon>
           <span *ngIf="!isCollapsed">Facturación</span>
         </a>
         <a
@@ -48,17 +48,17 @@
           matTooltipPosition="right"
           [matTooltipDisabled]="!isCollapsed"
         >
-          <mat-icon>apps</mat-icon>
+          <mat-icon>workspaces</mat-icon>
           <span *ngIf="!isCollapsed">Servicios</span>
         </a>
         <a
           class="nav-list-item"
-          matTooltip="Etiquetas"
+          matTooltip="Agenda"
           matTooltipPosition="right"
           [matTooltipDisabled]="!isCollapsed"
         >
-          <mat-icon>bookmark_border</mat-icon>
-          <span *ngIf="!isCollapsed">Etiquetas</span>
+          <mat-icon>calendar_month</mat-icon>
+          <span *ngIf="!isCollapsed">Agenda</span>
         </a>
       </section>
       <a
@@ -68,7 +68,9 @@
         [matTooltipDisabled]="!isCollapsed"
         (click)="logout()"
       >
-        <mat-icon>logout</mat-icon>
+        <mat-icon>
+          <span class="material-symbols-outlined"> power_settings_circle </span>
+        </mat-icon>
         <span *ngIf="!isCollapsed">Salir</span>
       </a>
     </mat-nav-list>
