@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import {
   GenericModalTemplateComponent,
   iGenericModalContent,
+  iGenericModalContext,
   resetModalState,
   selectModalActionStatus,
   selectModalContent,
@@ -19,7 +20,7 @@ import {
 })
 export class GenericModalComponent {
   @ContentChild(TemplateRef)
-  public templateContentRef: any;
+  public templateContentRef!: TemplateRef<Component>;
   public modalContent$: Observable<iGenericModalContent | null> = of(null);
   public modalActionStatus$: Observable<boolean> = of(true);
   private genericModalRef!: MatDialogRef<GenericModalTemplateComponent>;
@@ -33,10 +34,10 @@ export class GenericModalComponent {
     this.genericModalRef = this.dialogRef.open(GenericModalTemplateComponent, {
       width: '80%',
       data: {
-        templateContent: this.templateContentRef,
+        modalContentTemplate: this.templateContentRef,
         modalContent$: this.modalContent$,
-        actionStatus$: this.modalActionStatus$,
-      },
+        modalActionStatus$: this.modalActionStatus$,
+      } as iGenericModalContext,
     });
   }
 

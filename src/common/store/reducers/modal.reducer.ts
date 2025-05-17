@@ -1,15 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-import { iGenericModalContent } from '../../models';
+import { ModalState } from '../../models';
 import {
   resetModalState,
   setModalActionStatus,
   setModalContent,
 } from '../actions';
-
-export interface ModalState {
-  content: iGenericModalContent | null;
-  actionStatus: boolean;
-}
 
 export const initialModalState: ModalState = {
   content: null,

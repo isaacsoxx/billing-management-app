@@ -1,10 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { setFormState } from '../actions';
-
-export interface FormState {
-  isValid: boolean;
-  value: any;
-}
+import { FormState } from '../../models';
 
 export const initialFormState: FormState = {
   isValid: false,

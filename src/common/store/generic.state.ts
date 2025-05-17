@@ -1,12 +1,9 @@
+import { FormState, ModalState, SpinnerState, TableState } from '../models';
 import {
   initialFormState,
   initialModalState,
   initialTableState,
   initialSpinnerState,
-  FormState,
-  ModalState,
-  TableState,
-  SpinnerState,
 } from './reducers';
 
 export interface iGenericState {

@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
-  GenericFormComponent,
   iGenericFormFieldModel,
   iGenericFormFieldType,
   iGenericFormFieldValidationType,
@@ -15,8 +14,6 @@ import {
   styleUrl: './users-form.component.scss',
 })
 export class UsersFormComponent implements OnInit {
-  @ViewChild('genericFormComponent')
-  public genericFormComponent!: GenericFormComponent;
   public userForm = new FormGroup({
     userId: new FormControl(null, [
       Validators.required,
