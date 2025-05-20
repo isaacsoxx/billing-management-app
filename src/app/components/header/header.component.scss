@@ -4,12 +4,90 @@
 mat-toolbar {
   @include gradient-background(90deg);
   padding: 0 0.5rem;
-  position: absolute;
   z-index: 3;
 }
-
+::ng-deep div.mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 mat-sidenav-container {
   height: 100%;
+
+  mat-sidenav {
+    @extend .default-box-shadow;
+    @include gradient-background(180deg);
+    width: fit-content;
+
+    mat-nav-list {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    a.nav-list-item.active-route {
+      @extend .default-box-shadow;
+      color: $color-midnight-blue;
+      background-color: $color-soft-white;
+
+      mat-icon {
+        color: $color-midnight-blue;
+      }
+
+      &hover {
+        color: $color-midnight-blue;
+        mat-icon {
+          color: $color-midnight-blue;
+        }
+      }
+    }
+
+    .nav-list-item {
+      @extend .default-border-radius;
+      @extend .pointer-cursor;
+      border-bottom-left-radius: 0px !important;
+      border-top-left-radius: 0px !important;
+      color: $color-soft-white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.15rem;
+      margin: 0 0.45rem;
+      margin-left: 0;
+
+      mat-icon {
+        @media screen and (max-width: 800px) {
+          font-size: 1.6rem;
+        }
+
+        color: $color-soft-white;
+        font-size: 2rem;
+        width: fit-content;
+        height: fit-content;
+        span {
+          margin: 0;
+        }
+      }
+      span {
+        margin-left: 1.15rem;
+      }
+
+      &:hover {
+        color: $color-teal-blue;
+        background-color: $color-soft-white;
+
+        mat-icon {
+          color: $color-teal-blue;
+        }
+      }
+    }
+  }
 }
 
 button {
@@ -23,77 +101,6 @@ button {
 
   &.desktop {
     margin: 0.75rem 0.9rem;
-  }
-}
-mat-sidenav {
-  @include gradient-background(180deg);
-  width: fit-content;
-  @media screen and (max-width: 800px) {
-    padding-top: 4rem;
-  }
-
-  a.nav-list-item.active-route {
-    @extend .default-box-shadow;
-    color: $color-midnight-blue;
-    background-color: $color-soft-white;
-
-    mat-icon {
-      color: $color-midnight-blue;
-    }
-
-    &hover {
-      color: $color-midnight-blue;
-      mat-icon {
-        color: $color-midnight-blue;
-      }
-    }
-  }
-
-  mat-nav-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 90%;
-  }
-
-  .nav-list-item {
-    @extend .default-border-radius;
-    @extend .pointer-cursor;
-    border-bottom-left-radius: 0px !important;
-    border-top-left-radius: 0px !important;
-    color: $color-soft-white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1.15rem;
-    margin: 0.45rem;
-    margin-left: 0;
-
-    mat-icon {
-      @media screen and (max-width: 800px) {
-        font-size: 1.6rem;
-      }
-
-      color: $color-soft-white;
-      font-size: 2rem;
-      width: fit-content;
-      height: fit-content;
-      span {
-        margin: 0;
-      }
-    }
-    span {
-      margin-left: 1.15rem;
-    }
-
-    &:hover {
-      color: $color-teal-blue;
-      background-color: $color-soft-white;
-
-      mat-icon {
-        color: $color-teal-blue;
-      }
-    }
   }
 }
 

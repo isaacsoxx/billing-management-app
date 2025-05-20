@@ -1,4 +1,4 @@
-import { Component, ContentChild, TemplateRef } from '@angular/core';
+import { Component, ContentChild, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
@@ -19,8 +19,8 @@ import {
   styleUrl: './generic-modal.component.scss',
 })
 export class GenericModalComponent {
-  @ContentChild(TemplateRef)
-  public templateContentRef!: TemplateRef<Component>;
+  @ViewChild('modalTemplateContent')
+  public modalContentTemplate!: TemplateRef<Component>;
   public modalContent$: Observable<iGenericModalContent | null> = of(null);
   public modalActionStatus$: Observable<boolean> = of(true);
   private genericModalRef!: MatDialogRef<GenericModalTemplateComponent>;
@@ -34,7 +34,7 @@ export class GenericModalComponent {
     this.genericModalRef = this.dialogRef.open(GenericModalTemplateComponent, {
       width: '80%',
       data: {
-        modalContentTemplate: this.templateContentRef,
+        modalContentTemplate: this.modalContentTemplate,
         modalContent$: this.modalContent$,
         modalActionStatus$: this.modalActionStatus$,
       } as iGenericModalContext,
