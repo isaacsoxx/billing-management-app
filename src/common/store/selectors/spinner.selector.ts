@@ -5,5 +5,5 @@ export const selectSpinnerState =
   createFeatureSelector<iGenericState>('common');
 export const selectIsLoading = createSelector(
   selectSpinnerState,
-  (state) => state.spinner
+  (state) => state.spinner.isLoading
 );

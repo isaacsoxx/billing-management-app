@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { iUser } from '../../models';
 import { iGenericRowModel, iGenericTableColumnsModel } from '../../../common';
+import { iUser } from '../../models';
 
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { selectUser } from '../../store';
 
 @Component({

@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Store } from '@ngrx/store';
-import { GenericFormComponent } from './generic-form.component';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
+import { GenericModalComponent } from '../../../common';
+import { UsersRegisterComponent } from './users-register.component';
+import { MatIconModule } from '@angular/material/icon';
 
-describe('GenericFormComponent', () => {
-  let component: GenericFormComponent;
-  let fixture: ComponentFixture<GenericFormComponent>;
+describe('UsersRegisterComponent', () => {
+  let component: UsersRegisterComponent;
+  let fixture: ComponentFixture<UsersRegisterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule],
-      declarations: [GenericFormComponent],
+      imports: [MatIconModule],
+      declarations: [UsersRegisterComponent, GenericModalComponent],
       providers: [
         {
           provide: Store,
@@ -24,11 +25,8 @@ describe('GenericFormComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GenericFormComponent);
+    fixture = TestBed.createComponent(UsersRegisterComponent);
     component = fixture.componentInstance;
-
-    component.form = new FormGroup({});
-    component.formFields = [];
     fixture.detectChanges();
   });
 

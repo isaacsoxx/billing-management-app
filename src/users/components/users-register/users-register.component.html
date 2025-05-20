@@ -1,0 +1,15 @@
+<app-generic-modal #usersFormModal>
+  <app-users-form></app-users-form>
+</app-generic-modal>
+
+<section class="create-user my-5 d-flex justify-content-start">
+  <button
+    mat-button
+    mat-flat-button
+    class="primary"
+    (click)="openGenericFormModal()"
+  >
+    Registrar nuevo cliente
+    <mat-icon>group_add</mat-icon>
+  </button>
+</section>

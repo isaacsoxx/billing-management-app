@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { getSelectedUser, iUser } from '../..';
 
 @Component({
@@ -11,23 +11,18 @@ import { getSelectedUser, iUser } from '../..';
   templateUrl: './users-profile.component.html',
   styleUrl: './users-profile.component.scss',
 })
-export class UsersProfileComponent {
-  private selectedUser$!: Observable<iUser | null>;
-  public userData!: Partial<iUser>;
+export class UsersProfileComponent implements OnInit {
+  public selectedUser$!: Observable<iUser | null>;
 
-  constructor(private store: Store, private router: Router) {
-    this.selectedUser$ = this.store.select(getSelectedUser);
+  constructor(private store: Store, private router: Router) {}
 
-    this.selectedUser$
-      .pipe(
-        map((user: iUser | null) => {
-          if (!!user) {
-            this.userData = user;
-          } else {
-            this.router.navigateByUrl('/users');
-          }
-        })
-      )
-      .subscribe();
+  ngOnInit() {
+    this.selectedUser$ = this.store.select(getSelectedUser).pipe(
+      tap((user: iUser | null) => {
+        if (!user) {
+          this.router.navigateByUrl('/users');
+        }
+      })
+    );
   }
 }

@@ -1,19 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { GenericFormComponent } from './generic-form.component';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
+import { GenericModalTemplateComponent } from './generic-modal-template.component';
 
-describe('GenericFormComponent', () => {
-  let component: GenericFormComponent;
-  let fixture: ComponentFixture<GenericFormComponent>;
+describe('GenericModalTemplateComponent', () => {
+  let component: GenericModalTemplateComponent;
+  let fixture: ComponentFixture<GenericModalTemplateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule],
-      declarations: [GenericFormComponent],
+      imports: [MatDialogModule],
+      declarations: [GenericModalTemplateComponent],
       providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
         {
           provide: Store,
           useValue: {
@@ -24,11 +25,8 @@ describe('GenericFormComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GenericFormComponent);
+    fixture = TestBed.createComponent(GenericModalTemplateComponent);
     component = fixture.componentInstance;
-
-    component.form = new FormGroup({});
-    component.formFields = [];
     fixture.detectChanges();
   });
 

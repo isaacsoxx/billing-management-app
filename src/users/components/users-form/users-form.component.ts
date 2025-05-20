@@ -7,13 +7,13 @@ import {
 } from '../../../common';
 
 @Component({
-  selector: 'app-user-form',
+  selector: 'app-users-form',
   standalone: false,
 
-  templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.scss',
+  templateUrl: './users-form.component.html',
+  styleUrl: './users-form.component.scss',
 })
-export class UserFormComponent implements OnInit {
+export class UsersFormComponent implements OnInit {
   public userForm = new FormGroup({
     userId: new FormControl(null, [
       Validators.required,
@@ -29,7 +29,11 @@ export class UserFormComponent implements OnInit {
   });
   public formFields!: iGenericFormFieldModel[];
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.setFormFields();
+  }
+
+  setFormFields() {
     this.formFields = [
       {
         displayName: 'Identificación',

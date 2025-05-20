@@ -1,20 +1,3 @@
-<h1 mat-dialog-title>{{ title }}</h1>
-
-<section mat-dialog-content>
-  <ng-container *ngTemplateOutlet="content"></ng-container>
-</section>
-
-<section
-  mat-dialog-actions
-  class="actionButtonsContainer d-flex justify-content-start"
->
-  <button
-    mat-button
-    mat-flat-button
-    *ngFor="let action of actionButtons"
-    [class]="action.type"
-    (click)="action.action()"
-  >
-    {{ action.displayName }}
-  </button>
-</section>
+<ng-template #modalTemplateContent>
+  <ng-content></ng-content>
+</ng-template>

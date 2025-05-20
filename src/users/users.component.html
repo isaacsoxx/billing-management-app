@@ -1,19 +1,10 @@
-<ng-template #genericUserFormModalContent>
-  <app-user-form></app-user-form>
-</ng-template>
-
 <p>
   En la siguiente tabla podrá visualizar una lista con todos los clientes
   registrados, además al seleccionar uno podrá ver qué acciones puede realizar
   con éste; si lo desea, tambien puede registrar un ciente nuevo al accionar en
-  el botón que se lo indica .
+  el botón que se lo indica.
 </p>
 
-<section class="create-user my-5 d-flex justify-content-start">
-  <button mat-button mat-flat-button (click)="openGenericFormModal()">
-    Registrar nuevo cliente
-    <mat-icon>add_circle_outline</mat-icon>
-  </button>
-</section>
+<app-users-register></app-users-register>
 
 <app-users-table></app-users-table>
