@@ -1,1 +1,3 @@
-<p>Welcome {{ userData.name }}</p>
+<ng-template *ngIf="selectedUser$ | async as userData">
+  <p>Welcome {{ userData.name }}</p>
+</ng-template>

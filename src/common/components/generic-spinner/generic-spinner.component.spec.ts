@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import { GenericSpinnerComponent } from './generic-spinner.component';
 
 describe('GenericSpinnerComponent', () => {
@@ -8,9 +11,18 @@ describe('GenericSpinnerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GenericSpinnerComponent]
-    })
-    .compileComponents();
+      imports: [MatProgressSpinnerModule],
+      declarations: [GenericSpinnerComponent],
+      providers: [
+        {
+          provide: Store,
+          useValue: {
+            dispatch: jasmine.createSpy(),
+            select: jasmine.createSpy().and.returnValue(of({})),
+          },
+        },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(GenericSpinnerComponent);
     component = fixture.componentInstance;
