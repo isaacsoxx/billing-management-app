@@ -1,18 +1,18 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { iGenericState } from './generic.state';
 import {
   formReducer,
+  messagesReducer,
   modalReducer,
   spinnerReducer,
-  tableReducer,
 } from './reducers';
+import { iGenericState } from '../models';
 
 export * from './generic.state';
 export * from './actions';
 export * from './selectors';
 
 export const reducers: ActionReducerMap<iGenericState> = {
-  table: tableReducer,
+  messages: messagesReducer,
   spinner: spinnerReducer,
   modal: modalReducer,
   form: formReducer,

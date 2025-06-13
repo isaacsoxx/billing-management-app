@@ -1,5 +1,6 @@
 <app-generic-table
-  [dataSource]="dataSource"
+  [dataSource]="dataSource$"
+  [dataSourceError]="dataSourceError$"
   [columns]="dataColumns"
   (onRowSelectEvent)="redirToProfile($event)"
 ></app-generic-table>

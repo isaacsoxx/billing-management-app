@@ -18,13 +18,20 @@ import { AppRoutingModule, AppComponent, HeaderComponent } from '.';
 import { AuthModule } from '../auth';
 import { UsersModule } from '../users';
 import { GenericComponentsModule } from '../common';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import { TokenInterceptor } from '../auth/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    StoreModule.forRoot({}),
     AuthModule,
     UsersModule,
     GenericComponentsModule,
@@ -39,7 +46,15 @@ import { GenericComponentsModule } from '../common';
     MatToolbarModule,
     MatSidenavModule,
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

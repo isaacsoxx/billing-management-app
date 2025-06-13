@@ -1,4 +1,4 @@
 export * from './users.state';
-export * from './actions/user.actions';
-export * from './reducers/user.reducer';
-export * from './selectors/user.selector';
+export * from './actions/users.actions';
+export * from './reducers/users.reducer';
+export * from './selectors/users.selector';

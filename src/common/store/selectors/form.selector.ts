@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { iGenericState } from '../generic.state';
+import { iGenericState } from '../../models';
 
 export const selectFormState = createFeatureSelector<iGenericState>('common');
 export const selectFormValid = createSelector(

@@ -16,6 +16,8 @@ import {
 } from '.';
 import { GenericComponentsModule } from '../common';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersEffects } from './store/effects/users.effects';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { StoreModule } from '@ngrx/store';
   ],
   imports: [
     CommonModule,
+    EffectsModule.forFeature([UsersEffects]),
     StoreModule.forFeature('users', userReducer),
 
     RouterModule,

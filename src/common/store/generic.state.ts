@@ -1,20 +1,13 @@
-import { FormState, ModalState, SpinnerState, TableState } from '../models';
+import { iGenericState } from '../models';
 import {
   initialFormState,
+  initialMessagesState,
   initialModalState,
-  initialTableState,
   initialSpinnerState,
 } from './reducers';
 
-export interface iGenericState {
-  table: TableState;
-  spinner: SpinnerState;
-  modal: ModalState;
-  form: FormState;
-}
-
 export const initialState: iGenericState = {
-  table: initialTableState,
+  messages: initialMessagesState,
   spinner: initialSpinnerState,
   modal: initialModalState,
   form: initialFormState,
