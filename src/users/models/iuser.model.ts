@@ -1,9 +1,10 @@
 import { iGenericRowModel } from '../../common';
 
 export interface iUser extends iGenericRowModel {
-  userId: string;
-  name: string;
+  uuid: string;
+  firstName: string;
   lastName: string;
-  email?: string;
-  phone?: string;
+  phoneNumber: string;
+  isActive: boolean;
+  role: string;
 }

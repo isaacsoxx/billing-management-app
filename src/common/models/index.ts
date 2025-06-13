@@ -1,3 +1,4 @@
+export * from './iapi-response.model';
 export * from './igeneric-state.model';
 export * from './igeneric-table.model';
 export * from './igeneric-modal-content.model';

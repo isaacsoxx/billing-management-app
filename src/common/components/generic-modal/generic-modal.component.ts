@@ -19,7 +19,7 @@ import {
   styleUrl: './generic-modal.component.scss',
 })
 export class GenericModalComponent {
-  @ViewChild('modalTemplateContent')
+  @ContentChild(TemplateRef)
   public modalContentTemplate!: TemplateRef<Component>;
   public modalContent$: Observable<iGenericModalContent | null> = of(null);
   public modalActionStatus$: Observable<boolean> = of(true);
