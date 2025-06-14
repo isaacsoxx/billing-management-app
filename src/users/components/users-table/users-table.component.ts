@@ -1,10 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { iGenericRowModel, iGenericTableColumnsModel } from '../../../common';
-import { iUser } from '../../models';
-
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { selectUser } from '../../store';
+import { Action, MemoizedSelector, Store } from '@ngrx/store';
+import { iGenericRowModel, iGenericTableColumnsModel } from '../../../common';
+import { iUser, iUsersState } from '../../models';
+
+import { map, Observable } from 'rxjs';
+import { iSessionModel, selectAuthSession } from '../../../auth';
+import {
+  getAllSubscriptions,
+  getAllUsers,
+  selectAllSubscriptions,
+  selectAllSubscriptionsError,
+  selectAllUsers,
+  selectAllUsersError,
+  setSelectedUser,
+} from '../../store';
 
 @Component({
   selector: 'app-users-table',
@@ -14,52 +24,54 @@ import { selectUser } from '../../store';
   styleUrl: './users-table.component.scss',
 })
 export class UsersTableComponent implements OnInit {
-  public dataSource!: iUser[];
+  public dataSource$!: Observable<iUser[]>;
+  public dataSourceError$!: Observable<boolean>;
   public dataColumns: iGenericTableColumnsModel[] = [
-    { columnDef: 'userId', displayName: 'Cédula' },
-    { columnDef: 'name', displayName: 'Nombre' },
+    { columnDef: 'uuid', displayName: 'Cédula' },
+    { columnDef: 'firstName', displayName: 'Nombre' },
     { columnDef: 'lastName', displayName: 'Apellido' },
-    { columnDef: 'email', displayName: 'Correo electrónico' },
+    { columnDef: 'phoneNumber', displayName: 'Número Telefónico' },
   ];
+  private tableDataAction!: () => Action;
+  private tableDataSelector!: MemoizedSelector<iUsersState, iUser[]>;
+  private tableDataErrorSelector!: MemoizedSelector<iUsersState, boolean>;
+  private unauthorizedRole: boolean = false;
 
-  constructor(private router: Router, private store: Store) {}
+  constructor(private router: Router, private store: Store<iUsersState>) {}
 
   ngOnInit(): void {
-    this.getUsersData();
+    this.validateRoleResources().subscribe();
+    if (!this.unauthorizedRole) {
+      this.store.dispatch(this.tableDataAction);
+      this.dataSource$ = this.store.select(this.tableDataSelector);
+      this.dataSourceError$ = this.store.select(this.tableDataErrorSelector);
+    }
   }
 
-  getUsersData() {
-    const usersData = [
-      {
-        userId: '111111111',
-        name: 'First',
-        lastName: 'Last',
-        email: 'first-row01@mail.com',
-      },
-      {
-        userId: '22222222',
-        name: 'Second',
-        lastName: 'Last',
-        email: 'second-row02@mail.com',
-      },
-      {
-        userId: '33333333',
-        name: 'Third',
-        lastName: 'Last',
-        email: 'third-row03@mail.com',
-      },
-      {
-        userId: '44444444',
-        name: 'Fourth',
-        lastName: 'Last',
-        email: 'fourth-row04@mail.com',
-      },
-    ];
-    this.dataSource = usersData;
+  validateRoleResources() {
+    return this.store.select(selectAuthSession).pipe(
+      map((session: iSessionModel | null) => {
+        switch (session?.role) {
+          case 'maintainer':
+            this.tableDataAction = () => getAllUsers();
+            this.tableDataSelector = selectAllUsers;
+            this.tableDataErrorSelector = selectAllUsersError;
+            break;
+          case 'admin':
+            this.tableDataAction = () =>
+              getAllSubscriptions({ uuid: session.uuid });
+            this.tableDataSelector = selectAllSubscriptions;
+            this.tableDataErrorSelector = selectAllSubscriptionsError;
+            break;
+          default:
+            this.unauthorizedRole = true;
+        }
+      })
+    );
   }
 
   redirToProfile(event: iGenericRowModel) {
-    this.store.dispatch(selectUser({ user: event as iUser }));
+    this.store.dispatch(setSelectedUser({ user: event as iUser }));
     this.router.navigateByUrl('users/profile');
   }
 }

@@ -42,4 +42,15 @@
       }
     }
   }
+  .empty-table-template {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 0;
+    mat-icon {
+      height: max-content;
+      width: max-content;
+      font-size: 8rem;
+    }
+  }
 }

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
-import { getSelectedUser, iUser } from '../..';
+import { selectUserDetails, iUser, setSelectedUser } from '../..';
 
 @Component({
   selector: 'app-users-profile',
@@ -11,18 +11,22 @@ import { getSelectedUser, iUser } from '../..';
   templateUrl: './users-profile.component.html',
   styleUrl: './users-profile.component.scss',
 })
-export class UsersProfileComponent implements OnInit {
+export class UsersProfileComponent implements OnInit, OnDestroy {
   public selectedUser$!: Observable<iUser | null>;
 
   constructor(private store: Store, private router: Router) {}
 
   ngOnInit() {
-    this.selectedUser$ = this.store.select(getSelectedUser).pipe(
+    this.selectedUser$ = this.store.select(selectUserDetails).pipe(
       tap((user: iUser | null) => {
         if (!user) {
           this.router.navigateByUrl('/users');
         }
       })
     );
+  }
+
+  ngOnDestroy() {
+    this.store.dispatch(setSelectedUser({ user: null }));
   }
 }
