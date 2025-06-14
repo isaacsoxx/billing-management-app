@@ -5,5 +5,5 @@ export const initialState: iUsersState = {
   allSubscriptions: [],
   allSubscriptionsError: false,
   allUsers: [],
-  allUsersApiError: false,
+  allUsersError: false,
 };

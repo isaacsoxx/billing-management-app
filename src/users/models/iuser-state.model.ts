@@ -5,5 +5,5 @@ export interface iUsersState {
   allSubscriptions: iUser[];
   allSubscriptionsError: boolean;
   allUsers: iUser[];
-  allUsersApiError: boolean;
+  allUsersError: boolean;
 }

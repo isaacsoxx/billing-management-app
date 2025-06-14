@@ -1,24 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Action, MemoizedSelector, Selector, Store } from '@ngrx/store';
+import { Action, MemoizedSelector, Store } from '@ngrx/store';
 import { iGenericRowModel, iGenericTableColumnsModel } from '../../../common';
 import { iUser, iUsersState } from '../../models';
 
 import { map, Observable } from 'rxjs';
+import { iSessionModel, selectAuthSession } from '../../../auth';
 import {
-  selectAllUsersError,
-  setSelectedUser,
   getAllSubscriptions,
   getAllUsers,
-  selectAllUsers,
   selectAllSubscriptions,
   selectAllSubscriptionsError,
+  selectAllUsers,
+  selectAllUsersError,
+  setSelectedUser,
 } from '../../store';
-import {
-  getAuthSession,
-  iSessionModel,
-  selectAuthSession,
-} from '../../../auth';
 
 @Component({
   selector: 'app-users-table',
@@ -66,7 +62,6 @@ export class UsersTableComponent implements OnInit {
               getAllSubscriptions({ uuid: session.uuid });
             this.tableDataSelector = selectAllSubscriptions;
             this.tableDataErrorSelector = selectAllSubscriptionsError;
-
             break;
           default:
             this.unauthorizedRole = true;

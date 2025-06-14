@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
-import { getSelectedUser, iUser, setSelectedUser } from '../..';
+import { selectUserDetails, iUser, setSelectedUser } from '../..';
 
 @Component({
   selector: 'app-users-profile',
@@ -17,7 +17,7 @@ export class UsersProfileComponent implements OnInit, OnDestroy {
   constructor(private store: Store, private router: Router) {}
 
   ngOnInit() {
-    this.selectedUser$ = this.store.select(getSelectedUser).pipe(
+    this.selectedUser$ = this.store.select(selectUserDetails).pipe(
       tap((user: iUser | null) => {
         if (!user) {
           this.router.navigateByUrl('/users');

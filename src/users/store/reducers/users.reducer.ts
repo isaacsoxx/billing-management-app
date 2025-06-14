@@ -20,7 +20,7 @@ export const userReducer = createReducer(
   })),
   on(setAllUsersError, (state, { error }) => ({
     ...state,
-    allUsersApiError: error,
+    allUsersError: error,
   })),
   on(setAllSubscriptionsSuccess, (state, { allSubscriptions }) => ({
     ...state,

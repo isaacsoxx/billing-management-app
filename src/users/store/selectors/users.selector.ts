@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { iUsersState } from '../../models';
 
 export const selectUserState = createFeatureSelector<iUsersState>('users');
-export const getSelectedUser = createSelector(
+export const selectUserDetails = createSelector(
   selectUserState,
   (state) => state.selectedUser
 );
@@ -12,7 +12,7 @@ export const selectAllUsers = createSelector(
 );
 export const selectAllUsersError = createSelector(
   selectUserState,
-  (state) => state.allUsersApiError
+  (state) => state.allUsersError
 );
 export const selectAllSubscriptions = createSelector(
   selectUserState,
@@ -20,5 +20,5 @@ export const selectAllSubscriptions = createSelector(
 );
 export const selectAllSubscriptionsError = createSelector(
   selectUserState,
-  (state) => state.allUsersApiError
+  (state) => state.allUsersError
 );
