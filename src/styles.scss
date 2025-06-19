@@ -48,6 +48,9 @@ body {
   @extend .default-border-radius;
   @extend .default-box-shadow;
 }
+.default-icon-size {
+  width: 25%;
+}
 
 .pointer-cursor {
   cursor: pointer;

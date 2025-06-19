@@ -31,20 +31,20 @@
 
   <ng-container *ngIf="!dataSourceState.hasData && !dataSourceState.error">
     <section class="empty-table-template">
-      <h5>No fue posible encontrar recursos</h5>
-      <p>Asegúrese de tener recursos activos.</p>
-      <mat-icon>search</mat-icon>
+      <svg class="default-icon-size" no-results-icon></svg>
+      <h5>No hay registros por mostrar</h5>
+      <p>Aún no se han registrado recursos en esta colección.</p>
     </section>
   </ng-container>
 
   <ng-container *ngIf="!dataSourceState.hasData && dataSourceState.error">
     <section class="empty-table-template">
-      <h5>No fue posible obtener recursos</h5>
+      <svg class="default-icon-size" load-error-icon></svg>
+      <h5>No es posible obtener regisros</h5>
       <p>
-        Asegúrese de tener conexión a internet activa y que tenga los permisos
-        adecuados para acceder a este recurso.
+        Verifique su conexión a internet y que tenga los permisos necesarios
+        para acceder.
       </p>
-      <mat-icon>sync_problem</mat-icon>
     </section>
   </ng-container>
 </section>

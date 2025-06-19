@@ -25,6 +25,11 @@ import { reducers } from './store';
 import { GenericToastComponent } from './components/generic-toast/generic-toast.component';
 import { EffectsModule } from '@ngrx/effects';
 import { MessagesEffects } from './store/effects/messages.effects';
+import {
+  LoadErrorIconComponent,
+  NoResultsIconComponent,
+  UnauthorizedIconComponent,
+} from './svg';
 
 @NgModule({
   declarations: [
@@ -34,6 +39,10 @@ import { MessagesEffects } from './store/effects/messages.effects';
     GenericFormComponent,
     GenericSpinnerComponent,
     GenericToastComponent,
+
+    NoResultsIconComponent,
+    UnauthorizedIconComponent,
+    LoadErrorIconComponent,
   ],
   imports: [
     NgToastModule,
