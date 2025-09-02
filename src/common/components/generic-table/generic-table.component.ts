@@ -1,6 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { combineLatest, map, Observable } from 'rxjs';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
 import { iGenericRowModel, iGenericTableColumnsModel } from '../../models';
+import { GenericTableService } from '../../services';
+import { resetDataSourceKey } from '../../store';
 
 @Component({
   selector: 'app-generic-table',
@@ -9,9 +19,7 @@ import { iGenericRowModel, iGenericTableColumnsModel } from '../../models';
   templateUrl: './generic-table.component.html',
   styleUrl: './generic-table.component.scss',
 })
-export class GenericTableComponent implements OnInit {
-  @Input('dataSource') dataSource$!: Observable<any>;
-  @Input('dataSourceError') dataSourceError$!: Observable<boolean>;
+export class GenericTableComponent implements OnInit, OnDestroy {
   @Input('columns') columns!: iGenericTableColumnsModel[];
   @Output('onRowSelectEvent') onRowSelectEvent =
     new EventEmitter<iGenericRowModel>();
@@ -25,23 +33,27 @@ export class GenericTableComponent implements OnInit {
     hasData: boolean;
   }>;
 
-  constructor() {}
+  constructor(
+    private readonly genericTableService: GenericTableService,
+    private readonly store: Store
+  ) {}
 
   ngOnInit(): void {
     this.displayedColumns = this.columns.map(
       (column: iGenericTableColumnsModel) => column.columnDef
     );
 
-    this.dataSourceState$ = combineLatest([
-      this.dataSource$,
-      this.dataSourceError$,
-    ]).pipe(
-      map(([dataSource, dataSourceError]) => ({
-        data: dataSource,
-        error: dataSourceError,
-        hasData: dataSource.length > 0,
+    this.dataSourceState$ = this.genericTableService.getDataSourceState().pipe(
+      map((dataSourceState) => ({
+        data: dataSourceState.data,
+        error: dataSourceState.error as boolean,
+        hasData: dataSourceState.hasData,
       }))
     );
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(resetDataSourceKey());
   }
 
   setSelectedRow(row: iGenericRowModel) {

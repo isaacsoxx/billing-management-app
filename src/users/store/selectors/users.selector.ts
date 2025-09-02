@@ -16,9 +16,9 @@ export const selectAllUsersError = createSelector(
 );
 export const selectAllSubscriptions = createSelector(
   selectUserState,
-  (state) => state.allUsers
+  (state) => state.allSubscriptions
 );
 export const selectAllSubscriptionsError = createSelector(
   selectUserState,
-  (state) => state.allUsersError
+  (state) => state.allSubscriptionsError
 );

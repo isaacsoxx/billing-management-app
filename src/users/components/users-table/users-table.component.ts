@@ -1,20 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Action, MemoizedSelector, Store } from '@ngrx/store';
-import { iGenericRowModel, iGenericTableColumnsModel } from '../../../common';
+import { Action, Store } from '@ngrx/store';
+import {
+  GenericTableService,
+  iGenericRowModel,
+  iGenericTableColumnsModel,
+  iGenericTableKeys,
+} from '../../../common';
 import { iUser, iUsersState } from '../../models';
 
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { iSessionModel, selectAuthSession } from '../../../auth';
-import {
-  getAllSubscriptions,
-  getAllUsers,
-  selectAllSubscriptions,
-  selectAllSubscriptionsError,
-  selectAllUsers,
-  selectAllUsersError,
-  setSelectedUser,
-} from '../../store';
+import { getAllSubscriptions, getAllUsers, setUserDetails } from '../../store';
 
 @Component({
   selector: 'app-users-table',
@@ -24,8 +21,9 @@ import {
   styleUrl: './users-table.component.scss',
 })
 export class UsersTableComponent implements OnInit {
-  public dataSource$!: Observable<iUser[]>;
-  public dataSourceError$!: Observable<boolean>;
+  @Input('reloadResources')
+  public reloadResources: boolean = false;
+
   public dataColumns: iGenericTableColumnsModel[] = [
     { columnDef: 'uuid', displayName: 'Cédula' },
     { columnDef: 'firstName', displayName: 'Nombre' },
@@ -33,35 +31,39 @@ export class UsersTableComponent implements OnInit {
     { columnDef: 'phoneNumber', displayName: 'Número Telefónico' },
   ];
   private tableDataAction!: () => Action;
-  private tableDataSelector!: MemoizedSelector<iUsersState, iUser[]>;
-  private tableDataErrorSelector!: MemoizedSelector<iUsersState, boolean>;
   private unauthorizedRole: boolean = false;
 
-  constructor(private router: Router, private store: Store<iUsersState>) {}
+  constructor(
+    private readonly genericTableService: GenericTableService,
+    private readonly router: Router,
+    private readonly store: Store<iUsersState>
+  ) {}
 
   ngOnInit(): void {
-    this.validateRoleResources().subscribe();
+    this.setUsersResources().subscribe();
     if (!this.unauthorizedRole) {
-      this.store.dispatch(this.tableDataAction);
-      this.dataSource$ = this.store.select(this.tableDataSelector);
-      this.dataSourceError$ = this.store.select(this.tableDataErrorSelector);
+      this.loadUserResources();
+    } else {
+      console.error('User unauthorized');
     }
   }
 
-  validateRoleResources() {
+  setUsersResources() {
     return this.store.select(selectAuthSession).pipe(
       map((session: iSessionModel | null) => {
         switch (session?.role) {
           case 'maintainer':
             this.tableDataAction = () => getAllUsers();
-            this.tableDataSelector = selectAllUsers;
-            this.tableDataErrorSelector = selectAllUsersError;
+            this.genericTableService.setDataSourceStateKey(
+              iGenericTableKeys.ALL_USERS
+            );
             break;
           case 'admin':
             this.tableDataAction = () =>
               getAllSubscriptions({ uuid: session.uuid });
-            this.tableDataSelector = selectAllSubscriptions;
-            this.tableDataErrorSelector = selectAllSubscriptionsError;
+            this.genericTableService.setDataSourceStateKey(
+              iGenericTableKeys.ALL_SUBSCRIPTIONS
+            );
             break;
           default:
             this.unauthorizedRole = true;
@@ -70,8 +72,12 @@ export class UsersTableComponent implements OnInit {
     );
   }
 
+  loadUserResources() {
+    this.store.dispatch(this.tableDataAction);
+  }
+
   redirToProfile(event: iGenericRowModel) {
-    this.store.dispatch(setSelectedUser({ user: event as iUser }));
+    this.store.dispatch(setUserDetails({ user: event as iUser }));
     this.router.navigateByUrl('users/profile');
   }
 }

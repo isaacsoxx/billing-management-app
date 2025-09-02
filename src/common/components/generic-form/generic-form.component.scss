@@ -16,7 +16,14 @@ mat-form-field {
       outlined-focus-label-text-color: $color-teal-blue,
       outlined-focus-outline-color: $color-teal-blue,
       outlined-hover-outline-color: $color-teal-blue,
-      outlined-hover-label-text-color: $color-silver,
+      outlined-hover-label-text-color: $color-teal-blue,
+    )
+  );
+
+  @include mat.select-overrides(
+    (
+      enabled-arrow-color: $color-teal-blue,
+      placeholder-text-color: $color-teal-blue,
     )
   );
 }

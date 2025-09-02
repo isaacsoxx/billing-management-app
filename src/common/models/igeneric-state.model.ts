@@ -1,10 +1,11 @@
-import { iGenericModalContent, iGenericRowModel } from '.';
+import { iGenericModalContent, iGenericRowModel, iGenericTableKeys } from '.';
 
 export interface iGenericState {
   messages: iMessagesState;
   spinner: iSpinnerState;
   modal: iModalState;
   form: iFormState;
+  table: iTableState;
 }
 
 export interface iMessagesState {
@@ -24,4 +25,8 @@ export interface iModalState {
 
 export interface iSpinnerState {
   isLoading: boolean;
+}
+
+export interface iTableState {
+  dataSourceKey: iGenericTableKeys | null;
 }

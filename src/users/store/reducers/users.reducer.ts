@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialState } from '../users.state';
 import {
-  setSelectedUser,
+  setUserDetails,
   setAllUsersSuccess,
   setAllUsersError,
   setAllSubscriptionsSuccess,
@@ -10,7 +10,7 @@ import {
 
 export const userReducer = createReducer(
   initialState,
-  on(setSelectedUser, (state, { user }) => ({
+  on(setUserDetails, (state, { user }) => ({
     ...state,
     selectedUser: user,
   })),

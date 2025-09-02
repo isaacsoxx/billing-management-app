@@ -6,6 +6,7 @@ import {
   spinnerReducer,
 } from './reducers';
 import { iGenericState } from '../models';
+import { tableReducer } from './reducers/table.reducer';
 
 export * from './generic.state';
 export * from './actions';
@@ -16,4 +17,5 @@ export const reducers: ActionReducerMap<iGenericState> = {
   spinner: spinnerReducer,
   modal: modalReducer,
   form: formReducer,
+  table: tableReducer,
 };

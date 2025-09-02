@@ -8,3 +8,7 @@ export interface iUser extends iGenericRowModel {
   isActive: boolean;
   role: string;
 }
+
+export interface iStaff extends iUser {
+  sponsor: string;
+}

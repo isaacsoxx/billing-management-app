@@ -1,8 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
-import { iApiResponseModel, setError, withLoading } from '../../../common';
+import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs';
+import {
+  iApiResponseModel,
+  setError,
+  setSuccess,
+  withLoading,
+} from '../../../common';
+import { iUser } from '../../models';
 import { UsersService } from '../../services/users.service';
 import {
   getAllSubscriptions,
@@ -11,9 +18,11 @@ import {
   setAllSubscriptionsSuccess,
   setAllUsersError,
   setAllUsersSuccess,
+  setNewSubscription,
+  setNewSubscriptionSuccess,
+  setNewUser,
+  setNewUserSuccess,
 } from '../actions/users.actions';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { iUser } from '../../models';
 
 @Injectable()
 export class UsersEffects {
@@ -43,6 +52,30 @@ export class UsersEffects {
     )
   );
 
+  setNewUser = createEffect(() =>
+    this.actions$.pipe(
+      ofType(setNewUser),
+      mergeMap(({ newUser }) =>
+        this.usersService.createNewUserAsync(newUser).pipe(
+          withLoading(this.store),
+          map((userRes: iApiResponseModel<string>) =>
+            setSuccess({ success: userRes.message })
+          ),
+          catchError((response: HttpErrorResponse) =>
+            of(setError({ error: response.error.message }))
+          )
+        )
+      )
+    )
+  );
+  setNewUserSuccess = createEffect(() =>
+    this.actions$.pipe(
+      ofType(setNewUserSuccess),
+      tap(() => this.store.dispatch(getAllUsers())),
+      map(({ message }) => setSuccess({ success: message }))
+    )
+  );
+
   getAllSubscriptions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getAllSubscriptions),
@@ -60,6 +93,37 @@ export class UsersEffects {
           )
         )
       )
+    )
+  );
+
+  setNewSubscription$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(setNewSubscription),
+      switchMap(({ sponsorUuid, newStaff }) =>
+        this.usersService
+          .createNewSubscriptionAsync(sponsorUuid, newStaff)
+          .pipe(
+            withLoading(this.store),
+            map((userRes: iApiResponseModel<string>) =>
+              setNewSubscriptionSuccess({
+                message: userRes.message,
+                sponsorUuid: sponsorUuid,
+              })
+            ),
+            catchError((response: HttpErrorResponse) =>
+              of(setError({ error: response.error.message }))
+            )
+          )
+      )
+    )
+  );
+  setNewSubscriptionSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(setNewSubscriptionSuccess),
+      tap(({ sponsorUuid }) =>
+        this.store.dispatch(getAllSubscriptions({ uuid: sponsorUuid }))
+      ),
+      map(({ message }) => setSuccess({ success: message }))
     )
   );
 }

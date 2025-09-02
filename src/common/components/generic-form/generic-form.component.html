@@ -1,12 +1,29 @@
 <section [formGroup]="form" class="py-4">
   <div *ngFor="let field of formFields" class="mx-4">
-    <mat-form-field appearance="outline" class="w-100 my-2 d-flex">
+    <mat-form-field
+      *ngIf="field.type !== genericFormFieldTypes.SELECT"
+      appearance="outline"
+      class="w-100 my-2 d-flex"
+    >
       <mat-label>{{ field.displayName }}</mat-label>
       <input
         matInput
+        *ngIf="!field.mask"
         [id]="field.controlName"
         [type]="field.type"
         [formControlName]="field.controlName"
+      />
+
+      <input
+        matInput
+        *ngIf="field.mask"
+        [id]="field.controlName"
+        [type]="field.type"
+        [formControlName]="field.controlName"
+        [mask]="field.mask.mask"
+        [prefix]="field.mask.prefix"
+        [showMaskTyped]="field.mask.showMaskTyped"
+        [dropSpecialCharacters]="field.mask.dropSpecialCharacters"
       />
       <section *ngIf="getValidationStatus(field.controlName)">
         <mat-icon
@@ -16,6 +33,28 @@
           error_outline
         </mat-icon>
       </section>
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="
+        field.type === genericFormFieldTypes.SELECT &&
+        field.options !== undefined &&
+        field.options.length > 0
+      "
+      appearance="outline"
+      class="w-100 my-2 d-flex"
+    >
+      <mat-label>{{ field.displayName }}</mat-label>
+      <mat-select
+        matNativeControl
+        required
+        [formControlName]="field.controlName"
+      >
+        <mat-option value="" selected></mat-option>
+        <mat-option *ngFor="let option of field.options" [value]="option">
+          {{ capitalize(option) }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
 </section>

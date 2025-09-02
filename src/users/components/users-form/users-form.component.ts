@@ -5,6 +5,9 @@ import {
   iGenericFormFieldType,
   iGenericFormFieldValidationType,
 } from '../../../common';
+import { Store } from '@ngrx/store';
+import { iSessionModel, selectAuthSession } from '../../../auth';
+import { firstValueFrom, map } from 'rxjs';
 
 @Component({
   selector: 'app-users-form',
@@ -14,46 +17,28 @@ import {
   styleUrl: './users-form.component.scss',
 })
 export class UsersFormComponent implements OnInit {
-  public userForm = new FormGroup({
-    userId: new FormControl(null, [
-      Validators.required,
-      Validators.minLength(9),
-    ]),
-    name: new FormControl('', Validators.required),
+  public userForm = new FormGroup<Record<string, FormControl>>({
+    firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl(null, [
       Validators.required,
-      Validators.minLength(8),
+      Validators.minLength(10),
     ]),
   });
   public formFields!: iGenericFormFieldModel[];
 
+  constructor(private readonly store: Store) {}
+
   ngOnInit() {
     this.setFormFields();
+    this.validateFormByRole();
   }
 
   setFormFields() {
     this.formFields = [
       {
-        displayName: 'Identificación',
-        controlName: 'userId',
-        type: iGenericFormFieldType.NUMBER,
-        validationMessages: [
-          {
-            message: 'El número de identificación es requerido.',
-            type: iGenericFormFieldValidationType.REQUIRED,
-          },
-          {
-            message:
-              'El número de identificación debe indicar un máximo de 8 dígitos.',
-            type: iGenericFormFieldValidationType.MINLENGTH,
-          },
-        ],
-      },
-      {
         displayName: 'Nombre',
-        controlName: 'name',
+        controlName: 'firstName',
         type: iGenericFormFieldType.TEXT,
         validationMessages: [
           {
@@ -74,25 +59,9 @@ export class UsersFormComponent implements OnInit {
         ],
       },
       {
-        displayName: 'Correo Electrónico',
-        controlName: 'email',
-        type: iGenericFormFieldType.EMAIL,
-        validationMessages: [
-          {
-            message: 'El correo electrónico es requerido.',
-            type: iGenericFormFieldValidationType.REQUIRED,
-          },
-          {
-            message:
-              'El correo electrónico debe indicar el formato correcto; (correo@dominio.com).',
-            type: iGenericFormFieldValidationType.EMAIL,
-          },
-        ],
-      },
-      {
         displayName: 'Número Telefónico',
         controlName: 'phoneNumber',
-        type: iGenericFormFieldType.NUMBER,
+        type: iGenericFormFieldType.TEXT,
         validationMessages: [
           {
             message: 'El número telefónico es requerido',
@@ -103,8 +72,46 @@ export class UsersFormComponent implements OnInit {
               'El número telefónico debe indicar un mínimo de 8 digitos.',
             type: iGenericFormFieldValidationType.MINLENGTH,
           },
+          {
+            message: 'El número telefónico es inváildo.',
+            type: iGenericFormFieldValidationType.MASK,
+          },
         ],
+        mask: {
+          mask: '0000 0000',
+          prefix: '+1 ',
+          showMaskTyped: true,
+          dropSpecialCharacters: false,
+        },
       },
     ];
+  }
+
+  async validateFormByRole() {
+    const activeUserRole = await firstValueFrom(
+      this.store
+        .select(selectAuthSession)
+        .pipe(map((session: iSessionModel | null) => session?.role))
+    );
+
+    if (activeUserRole && activeUserRole === 'maintainer') {
+      this.expandFormControls();
+    }
+  }
+
+  expandFormControls() {
+    this.userForm.addControl('role', new FormControl('', Validators.required));
+    this.formFields.push({
+      displayName: 'Rol',
+      controlName: 'role',
+      type: iGenericFormFieldType.SELECT,
+      options: ['admin', 'maintainer'],
+      validationMessages: [
+        {
+          message: 'El rol es requerido.',
+          type: iGenericFormFieldValidationType.REQUIRED,
+        },
+      ],
+    });
   }
 }

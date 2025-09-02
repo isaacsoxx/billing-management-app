@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { StoreModule } from '@ngrx/store';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 import {
   GenericFormComponent,
@@ -30,6 +31,7 @@ import {
   NoResultsIconComponent,
   UnauthorizedIconComponent,
 } from './svg';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -45,11 +47,14 @@ import {
     LoadErrorIconComponent,
   ],
   imports: [
+    NgxMaskDirective,
+    NgxMaskPipe,
     NgToastModule,
     CommonModule,
     EffectsModule.forFeature([MessagesEffects]),
     StoreModule.forFeature('common', reducers),
 
+    MatSelectModule,
     MatProgressSpinnerModule,
     MatDividerModule,
     MatInputModule,
@@ -68,5 +73,6 @@ import {
     GenericSpinnerComponent,
     GenericToastComponent,
   ],
+  providers: [provideNgxMask()],
 })
 export class GenericComponentsModule {}

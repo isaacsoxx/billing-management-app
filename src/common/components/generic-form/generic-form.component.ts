@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription, tap } from 'rxjs';
 import {
   iGenericFormFieldModel,
+  iGenericFormFieldType,
   iGenericFormFieldValidation,
   setFormState,
 } from '../..';
@@ -20,6 +21,7 @@ export class GenericFormComponent implements OnInit, OnDestroy {
   public form!: FormGroup;
   @Input()
   public formFields!: iGenericFormFieldModel[];
+  public genericFormFieldTypes = iGenericFormFieldType;
 
   private formValueChangesSubscription$: Subscription = new Subscription();
 
@@ -42,9 +44,18 @@ export class GenericFormComponent implements OnInit, OnDestroy {
   }
 
   setFormState(isValid?: boolean, value?: any) {
+    const trimmedValues = this.trimObjectValues(value);
     this.store.dispatch(
-      setFormState({ isValid: isValid ?? false, value: value ?? null })
+      setFormState({ isValid: isValid ?? false, value: trimmedValues })
     );
+  }
+
+  trimObjectValues(value: any) {
+    return Object.entries(value as object).reduce((prev, [key, val]) => {
+      prev[key] =
+        typeof val === 'string' ? val.split(' ').join('') : val ?? null;
+      return prev;
+    }, {} as Record<string, string>);
   }
 
   getValidationStatus(controlName: string) {
@@ -68,5 +79,9 @@ export class GenericFormComponent implements OnInit, OnDestroy {
     );
 
     return foundMessage?.message || 'Hay un error con el valor indicado.';
+  }
+
+  capitalize(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 }

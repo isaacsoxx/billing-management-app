@@ -32,7 +32,7 @@ export class GenericModalComponent {
     this.getModalContent();
 
     this.genericModalRef = this.dialogRef.open(GenericModalTemplateComponent, {
-      width: '80%',
+      width: '90%',
       data: {
         modalContentTemplate: this.modalContentTemplate,
         modalContent$: this.modalContent$,

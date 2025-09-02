@@ -1,12 +1,21 @@
 import { Component, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subscription, tap } from 'rxjs';
+import { Action, Store } from '@ngrx/store';
+import { filter, firstValueFrom, Subscription, tap } from 'rxjs';
+import { selectAuthSession } from '../../../auth';
 import {
   GenericModalComponent,
   selectFormValid,
+  selectFormValue,
   setModalActionStatus,
   setModalContent,
 } from '../../../common';
+import { iStaff, iUser } from '../../models';
+import {
+  getAllSubscriptions,
+  getAllUsers,
+  setNewSubscription,
+  setNewUser,
+} from '../../store';
 
 @Component({
   selector: 'app-users-register',
@@ -20,7 +29,7 @@ export class UsersRegisterComponent {
   private usersFormModal!: GenericModalComponent;
   private isformValid$: Subscription = new Subscription();
 
-  constructor(private store: Store) {}
+  constructor(private readonly store: Store) {}
 
   openGenericFormModal() {
     this.setModalContent();
@@ -46,7 +55,7 @@ export class UsersRegisterComponent {
     this.store.dispatch(
       setModalContent({
         content: {
-          title: 'Registrar cliente',
+          title: 'Registrar usuario',
           submitDisplayText: 'Registar',
           cancelDisplayText: 'Cancelar',
           onSubmit: () => this.saveClient(),
@@ -57,11 +66,65 @@ export class UsersRegisterComponent {
   }
 
   saveClient() {
+    this.createUser();
     this.closeDialog();
   }
 
   closeDialog() {
     this.usersFormModal.close();
     this.isformValid$.unsubscribe();
+  }
+
+  async createUser() {
+    const baseUserData = await firstValueFrom(
+      this.store.select(selectFormValue).pipe(filter(Boolean))
+    );
+
+    await this.registerUserByRole(baseUserData);
+  }
+
+  async registerUserByRole(baseUserData: Partial<iUser>) {
+    const activeUserSession = await this.getActiveUserSession();
+
+    switch (activeUserSession.role) {
+      case 'maintainer':
+        this.dispatchNewUser(baseUserData);
+        break;
+
+      case 'admin':
+        this.dispatchNewSubscription(activeUserSession.uuid, baseUserData);
+
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  dispatchNewUser(baseUserData: Partial<iUser>) {
+    this.store.dispatch(
+      setNewUser({ newUser: { ...baseUserData, isActive: true } as iUser })
+    );
+  }
+
+  dispatchNewSubscription(sponsorUuid: string, baseUserData: Partial<iStaff>) {
+    const newStaff = {
+      ...baseUserData,
+      role: 'staff',
+      isActive: true,
+    } as iStaff;
+
+    this.store.dispatch(
+      setNewSubscription({
+        sponsorUuid: sponsorUuid,
+        newStaff,
+      })
+    );
+  }
+
+  async getActiveUserSession() {
+    return await firstValueFrom(
+      this.store.select(selectAuthSession).pipe(filter(Boolean))
+    );
   }
 }

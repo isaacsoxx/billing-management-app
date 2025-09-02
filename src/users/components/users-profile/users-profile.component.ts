@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
-import { selectUserDetails, iUser, setSelectedUser } from '../..';
+import { selectUserDetails, iUser, setUserDetails } from '../..';
 
 @Component({
   selector: 'app-users-profile',
@@ -27,6 +27,6 @@ export class UsersProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.store.dispatch(setSelectedUser({ user: null }));
+    this.store.dispatch(setUserDetails({ user: null }));
   }
 }
