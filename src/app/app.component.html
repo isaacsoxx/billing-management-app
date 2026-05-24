@@ -1,13 +1,14 @@
-<section [ngClass]="{ 'sign-in-wrapper': !(isSessionActive$ | async) }">
-  <amplify-authenticator>
-    <ng-template amplifySlot="authenticated">
-      <app-header>
-        <div>
-          <router-outlet></router-outlet>
-        </div>
-      </app-header>
-      <app-generic-spinner></app-generic-spinner>
-      <app-generic-toast></app-generic-toast>
-    </ng-template>
-  </amplify-authenticator>
+<section *ngIf="isSessionActive$ | async">
+  <app-header>
+    <div>
+      <app-device-trust-confirm></app-device-trust-confirm>
+      <router-outlet></router-outlet>
+    </div>
+  </app-header>
 </section>
+<section *ngIf="!(isSessionActive$ | async)">
+  <app-login></app-login>
+</section>
+
+<app-generic-spinner></app-generic-spinner>
+<app-generic-toast></app-generic-toast>

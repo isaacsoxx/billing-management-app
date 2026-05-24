@@ -13,21 +13,37 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
-import { AppRoutingModule, AppComponent, HeaderComponent } from '.';
+import {
+  AppRoutingModule,
+  AppComponent,
+  HeaderComponent,
+  DeviceTrustConfirmComponent,
+  LoginComponent,
+  SignInComponent,
+  MfaAuthComponent,
+} from '.';
 
 import { AuthModule } from '../auth';
-import { UsersModule } from '../users';
 import { GenericComponentsModule } from '../common';
 import {
   HTTP_INTERCEPTORS,
-  HttpClientModule,
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { TokenInterceptor } from '../auth/interceptors/token.interceptor';
+import { FormsModule } from '@angular/forms';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { UsersModule } from '../users';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    DeviceTrustConfirmComponent,
+    SignInComponent,
+    LoginComponent,
+    MfaAuthComponent,
+  ],
   imports: [
     BrowserModule,
     EffectsModule.forRoot([]),
@@ -36,15 +52,17 @@ import { TokenInterceptor } from '../auth/interceptors/token.interceptor';
     UsersModule,
     GenericComponentsModule,
     AppRoutingModule,
-
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
     AmplifyAuthenticatorModule,
+    FormsModule,
+    MatFormFieldModule,
     MatButtonModule,
     MatListModule,
     MatTooltipModule,
     MatIconModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatFormField,
   ],
   providers: [
     provideAnimationsAsync(),

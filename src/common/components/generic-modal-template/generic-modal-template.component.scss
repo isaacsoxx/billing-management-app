@@ -1,7 +1,7 @@
 @import "../../../themes.scss";
 @import "../../../styles.scss";
 
-section.actionButtonsContainer {
+section.action-buttons-container {
   button.disabled {
     @extend .default-disabled-button;
   }

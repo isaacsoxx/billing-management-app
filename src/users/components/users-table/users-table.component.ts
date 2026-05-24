@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Action, Store } from '@ngrx/store';
 import {
@@ -9,7 +9,7 @@ import {
 } from '../../../common';
 import { iUser, iUsersState } from '../../models';
 
-import { map } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { iSessionModel, selectAuthSession } from '../../../auth';
 import { getAllSubscriptions, getAllUsers, setUserDetails } from '../../store';
 
@@ -20,9 +20,10 @@ import { getAllSubscriptions, getAllUsers, setUserDetails } from '../../store';
   templateUrl: './users-table.component.html',
   styleUrl: './users-table.component.scss',
 })
-export class UsersTableComponent implements OnInit {
+export class UsersTableComponent implements OnInit, OnDestroy {
   @Input('reloadResources')
   public reloadResources: boolean = false;
+  private userResources$: Subscription = this.setUsersResources().subscribe();
 
   public dataColumns: iGenericTableColumnsModel[] = [
     { columnDef: 'uuid', displayName: 'Cédula' },
@@ -40,7 +41,6 @@ export class UsersTableComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.setUsersResources().subscribe();
     if (!this.unauthorizedRole) {
       this.loadUserResources();
     } else {
@@ -79,5 +79,9 @@ export class UsersTableComponent implements OnInit {
   redirToProfile(event: iGenericRowModel) {
     this.store.dispatch(setUserDetails({ user: event as iUser }));
     this.router.navigateByUrl('users/profile');
+  }
+
+  ngOnDestroy(): void {
+    this.userResources$.unsubscribe();
   }
 }

@@ -1,0 +1,23 @@
+@import "../../../themes.scss";
+@import "../../../styles.scss";
+
+form.form-wrapper {
+  background-color: white;
+  width: 50em;
+  @extend .default-border-radius;
+  padding: 2em 1em;
+  h1 {
+    color: $color-midnight-blue;
+    font-size: 1.8em;
+    text-align: center;
+  }
+  section {
+    button.primary {
+      @extend .default-primary-button;
+    }
+
+    button.disabled {
+      @extend .default-disabled-button;
+    }
+  }
+}

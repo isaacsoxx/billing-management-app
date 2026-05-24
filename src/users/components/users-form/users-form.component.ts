@@ -18,12 +18,9 @@ import { firstValueFrom, map } from 'rxjs';
 })
 export class UsersFormComponent implements OnInit {
   public userForm = new FormGroup<Record<string, FormControl>>({
+    emailAddress: new FormControl('', [Validators.required, Validators.email]),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    phoneNumber: new FormControl(null, [
-      Validators.required,
-      Validators.minLength(10),
-    ]),
   });
   public formFields!: iGenericFormFieldModel[];
 
@@ -36,6 +33,21 @@ export class UsersFormComponent implements OnInit {
 
   setFormFields() {
     this.formFields = [
+      {
+        displayName: 'Correo electrónico',
+        controlName: 'emailAddress',
+        type: iGenericFormFieldType.EMAIL,
+        validationMessages: [
+          {
+            message: 'El correo electrónico es requerido.',
+            type: iGenericFormFieldValidationType.REQUIRED,
+          },
+          {
+            message: 'El correo electrónico indicado es inválido.',
+            type: iGenericFormFieldValidationType.EMAIL,
+          },
+        ],
+      },
       {
         displayName: 'Nombre',
         controlName: 'firstName',
@@ -57,32 +69,6 @@ export class UsersFormComponent implements OnInit {
             type: iGenericFormFieldValidationType.REQUIRED,
           },
         ],
-      },
-      {
-        displayName: 'Número Telefónico',
-        controlName: 'phoneNumber',
-        type: iGenericFormFieldType.TEXT,
-        validationMessages: [
-          {
-            message: 'El número telefónico es requerido',
-            type: iGenericFormFieldValidationType.REQUIRED,
-          },
-          {
-            message:
-              'El número telefónico debe indicar un mínimo de 8 digitos.',
-            type: iGenericFormFieldValidationType.MINLENGTH,
-          },
-          {
-            message: 'El número telefónico es inváildo.',
-            type: iGenericFormFieldValidationType.MASK,
-          },
-        ],
-        mask: {
-          mask: '0000 0000',
-          prefix: '+1 ',
-          showMaskTyped: true,
-          dropSpecialCharacters: false,
-        },
       },
     ];
   }

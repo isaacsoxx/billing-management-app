@@ -1,0 +1,10 @@
+@import "../../../themes.scss";
+@import "../../../styles.scss";
+
+section.login-wrapper {
+  @include gradient-background(315deg);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

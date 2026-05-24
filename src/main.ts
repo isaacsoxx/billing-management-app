@@ -11,10 +11,10 @@ Amplify.configure({
       userPoolId: environment.aws_cognito.userPoolId,
       userPoolClientId: environment.aws_cognito.userPoolClientId,
       loginWith: {
-        phone: true,
+        email: true,
       },
       userAttributes: {
-        phone_number: { required: true },
+        email: { required: true },
       },
       passwordFormat: {
         minLength: 8,

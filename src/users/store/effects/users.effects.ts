@@ -68,6 +68,7 @@ export class UsersEffects {
       )
     )
   );
+
   setNewUserSuccess = createEffect(() =>
     this.actions$.pipe(
       ofType(setNewUserSuccess),

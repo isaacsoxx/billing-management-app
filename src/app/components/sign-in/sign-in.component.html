@@ -1,0 +1,18 @@
+<ng-template [ngIf]="signInChallengeActive$ | async">
+  <form class="form-wrapper" (ngSubmit)="onSignInInitiated()">
+    <h1>Iniciar sesión</h1>
+    <app-generic-form [form]="signInForm" [formFields]="signInFormFields">
+    </app-generic-form>
+    <section class="d-flex justify-content-center">
+      <button
+        mat-button
+        mat-flat-button
+        type="submit"
+        [disabled]="!(isFormValid$ | async)"
+        [ngClass]="!(isFormValid$ | async) ? 'disabled' : 'primary'"
+      >
+        Iniciar sesión
+      </button>
+    </section>
+  </form>
+</ng-template>

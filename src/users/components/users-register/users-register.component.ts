@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Action, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { filter, firstValueFrom, Subscription, tap } from 'rxjs';
 import { selectAuthSession } from '../../../auth';
 import {
@@ -10,12 +10,7 @@ import {
   setModalContent,
 } from '../../../common';
 import { iStaff, iUser } from '../../models';
-import {
-  getAllSubscriptions,
-  getAllUsers,
-  setNewSubscription,
-  setNewUser,
-} from '../../store';
+import { setNewSubscription, setNewUser } from '../../store';
 
 @Component({
   selector: 'app-users-register',

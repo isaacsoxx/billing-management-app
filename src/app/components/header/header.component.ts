@@ -12,7 +12,6 @@ import { removeAuthSession } from '../../../auth';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   isMobile = true;

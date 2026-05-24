@@ -11,9 +11,7 @@ import { selectIsLoading } from '../../store';
   styleUrl: './generic-spinner.component.scss',
 })
 export class GenericSpinnerComponent {
-  isLoading$: Observable<boolean>;
+  isLoading$: Observable<boolean> = this.store.select(selectIsLoading);
 
-  constructor(private store: Store) {
-    this.isLoading$ = this.store.select(selectIsLoading);
-  }
+  constructor(private store: Store) {}
 }

@@ -29,7 +29,7 @@ export class MessagesEffects {
       this.actions$.pipe(
         ofType(setSuccess),
         tap(({ success }) => {
-          this.toastService.success(success, 'Sucess', 4000);
+          this.toastService.success(success, 'Completado', 4000);
         })
       ),
     { dispatch: false }

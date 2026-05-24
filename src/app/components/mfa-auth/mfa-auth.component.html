@@ -1,0 +1,21 @@
+<ng-template [ngIf]="verificationCodeFormActive$ | async">
+  <form class="form-wrapper" (ngSubmit)="onVerificationCodeFormInitiated()">
+    <h1>Ingrese el código de verificación</h1>
+    <app-generic-form
+      [form]="verificationCodeForm"
+      [formFields]="verificationCodeFormFields"
+    >
+    </app-generic-form>
+    <section class="d-flex justify-content-center">
+      <button
+        mat-button
+        mat-flat-button
+        type="submit"
+        [disabled]="!(isFormValid$ | async)"
+        [ngClass]="!(isFormValid$ | async) ? 'disabled' : 'primary'"
+      >
+        Validar Identidad
+      </button>
+    </section>
+  </form>
+</ng-template>
